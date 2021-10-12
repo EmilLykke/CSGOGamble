@@ -156,3 +156,16 @@ D:\PROJEKTER\GitHub\CSGOGamble\CSGOGamble\obj\Debug\CSGOGamble.csproj.CoreCompil
 D:\PROJEKTER\GitHub\CSGOGamble\CSGOGamble\obj\Debug\CSGOGamble.csproj.CopyComplete
 D:\PROJEKTER\GitHub\CSGOGamble\CSGOGamble\obj\Debug\CSGOGamble.dll
 D:\PROJEKTER\GitHub\CSGOGamble\CSGOGamble\obj\Debug\CSGOGamble.pdb
+D:\PROJEKTER\GitHub\CSGOGamble\CSGOGamble\bin\Microsoft.AspNet.SignalR.Core.dll
+D:\PROJEKTER\GitHub\CSGOGamble\CSGOGamble\bin\Microsoft.AspNet.SignalR.SystemWeb.dll
+D:\PROJEKTER\GitHub\CSGOGamble\CSGOGamble\bin\Microsoft.Owin.dll
+D:\PROJEKTER\GitHub\CSGOGamble\CSGOGamble\bin\Microsoft.Owin.Host.SystemWeb.dll
+D:\PROJEKTER\GitHub\CSGOGamble\CSGOGamble\bin\Microsoft.Owin.Security.dll
+D:\PROJEKTER\GitHub\CSGOGamble\CSGOGamble\bin\Owin.dll
+D:\PROJEKTER\GitHub\CSGOGamble\CSGOGamble\bin\Microsoft.AspNet.SignalR.Core.pdb
+D:\PROJEKTER\GitHub\CSGOGamble\CSGOGamble\bin\Microsoft.AspNet.SignalR.Core.xml
+D:\PROJEKTER\GitHub\CSGOGamble\CSGOGamble\bin\Microsoft.AspNet.SignalR.SystemWeb.pdb
+D:\PROJEKTER\GitHub\CSGOGamble\CSGOGamble\bin\Microsoft.AspNet.SignalR.SystemWeb.xml
+D:\PROJEKTER\GitHub\CSGOGamble\CSGOGamble\bin\Microsoft.Owin.xml
+D:\PROJEKTER\GitHub\CSGOGamble\CSGOGamble\bin\Microsoft.Owin.Host.SystemWeb.xml
+D:\PROJEKTER\GitHub\CSGOGamble\CSGOGamble\bin\Microsoft.Owin.Security.xml
