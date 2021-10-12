@@ -1,4 +1,60 @@
 ﻿body {
+    background-color: #1a1a22;
     
 }
 
+.body-content {
+    
+    padding-top: 50px;
+    color: white;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#wheel {
+    position: relative;
+    background-image: url('../Images/stang.svg');
+    background-size: auto 100px;
+    height: 100px;
+    width: 100%;
+    background-repeat: repeat-x;
+    background-position: 550px center;
+    animation: yes 10s ease-out;
+    /*min-width: 750px;*/
+    
+}
+
+@keyframes yes {
+    0% {
+        background-position: 0px center;
+    }
+    80% {
+        background-position: -11500px center;
+    }
+    100% {
+        background-position: -11500px center;
+    }
+}
+
+#index-wheel {
+    
+    margin-bottom:50px;
+}
+
+#index-section{
+   
+    
+    
+    width:80%;
+}
+
+
+#last100{
+
+}
+
+#betting-amount{
+
+}

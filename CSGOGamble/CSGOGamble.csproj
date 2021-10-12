@@ -149,12 +149,18 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\Navbar.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
+    <Content Include="Images\counter.svg" />
+    <Content Include="Images\csgohtx.svg" />
+    <Content Include="Images\jackpot.svg" />
     <Content Include="Images\logo.svg" />
+    <Content Include="Images\stang.svg" />
+    <Content Include="Images\terrorist.svg" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
     <Content Include="Scripts\jquery-3.4.1.slim.js" />
