@@ -1,5 +1,6 @@
 
 CSGOGamble/.vs/CSGOGamble/v16/.suo
-CSGOGamble/bin/
+CSGOGamble/bin/Debug
+CSGOGamble/bin/Release
 CSGOGamble/obj/
 CSGOGamble/packages/
