@@ -262,6 +262,7 @@
     <Content Include="Images\logo.svg" />
     <Content Include="Images\stang.svg" />
     <Content Include="Images\terrorist.svg" />
+    <Content Include="Scripts\Index.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
     <Content Include="Scripts\jquery-3.4.1.slim.js" />
