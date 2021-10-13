@@ -63,13 +63,29 @@ namespace CSGOGamble.Controllers
             var loginInfo = await authenticationManager.GetExternalLoginInfoAsync();
             if(User.Identity.IsAuthenticated)
             {
-                RedirectToAction("Index", "Home");
-            } else
+                return RedirectToAction("Index", "Home");
+            } else if(loginInfo.ExternalIdentity.IsAuthenticated)
             {
 
-            }
-            return RedirectToAction("Login");
+                var user = this.databaseManager.users.SingleOrDefault(u => u.username == loginInfo.DefaultUserName && u.steam == loginInfo.Login.ProviderKey);
+                if(user != null)
+                {
+                    this.SignInUser(user.ID.ToString(), false);
+                    return this.RedirectToAction("Index", "Home");
+                    this.databaseManager.SaveChanges();
+                }
+                else
+                {
+                    user = this.databaseManager.users.Add(new user { username = loginInfo.DefaultUserName, steam = loginInfo.Login.ProviderKey, amount = 0 });
+                    // Login In.    
+                    this.SignInUser(user.ID.ToString(), false);
+                    // Info.    
+                    this.databaseManager.SaveChanges();
+                    return this.RedirectToAction("Index", "Home");
+                }
 
+            }
+            return this.RedirectToAction("Login");
         }
         /// <summary>  
         /// GET: /Account/Login    
