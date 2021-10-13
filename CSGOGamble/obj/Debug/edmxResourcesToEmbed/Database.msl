@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="CsgoBettingModelStoreContainer" CdmEntityContainer="CsgoBettingEntities1">
+    <EntitySetMapping Name="bets">
+      <EntityTypeMapping TypeName="CsgoBettingModel.bet">
+        <MappingFragment StoreEntitySet="bets">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="amount" ColumnName="amount" />
+          <ScalarProperty Name="roundID" ColumnName="roundID" />
+          <ScalarProperty Name="userID" ColumnName="userID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="roundkeys">
+      <EntityTypeMapping TypeName="CsgoBettingModel.roundkey">
+        <MappingFragment StoreEntitySet="roundkeys">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="date" ColumnName="date" />
+          <ScalarProperty Name="public" ColumnName="public" />
+          <ScalarProperty Name="secret" ColumnName="secret" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="rounds">
+      <EntityTypeMapping TypeName="CsgoBettingModel.round">
+        <MappingFragment StoreEntitySet="rounds">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="number" ColumnName="number" />
+          <ScalarProperty Name="outcome" ColumnName="outcome" />
+          <ScalarProperty Name="runtime" ColumnName="runtime" />
+          <ScalarProperty Name="keyid" ColumnName="keyid" />
+          <ScalarProperty Name="complete" ColumnName="complete" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="users">
+      <EntityTypeMapping TypeName="CsgoBettingModel.user">
+        <MappingFragment StoreEntitySet="users">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="username" ColumnName="username" />
+          <ScalarProperty Name="steam" ColumnName="steam" />
+          <ScalarProperty Name="amount" ColumnName="amount" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

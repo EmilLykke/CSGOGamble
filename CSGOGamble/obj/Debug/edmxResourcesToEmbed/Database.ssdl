@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="CsgoBettingModel.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="8.0" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="bets">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="amount" Type="int" Nullable="false" />
+    <Property Name="roundID" Type="int" Nullable="false" />
+    <Property Name="userID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="roundkeys">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="date" Type="datetime" Precision="0" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="public" Type="varchar" MaxLength="256" Nullable="false" />
+    <Property Name="secret" Type="varchar" MaxLength="256" Nullable="false" />
+  </EntityType>
+  <EntityType Name="rounds">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="number" Type="int" Nullable="false" />
+    <Property Name="outcome" Type="int" Nullable="false" />
+    <Property Name="runtime" Type="datetime" Precision="0" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="keyid" Type="int" Nullable="false" />
+    <Property Name="complete" Type="tinyint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="users">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="username" Type="varchar" MaxLength="256" Nullable="false" />
+    <Property Name="steam" Type="varchar" MaxLength="256" Nullable="false" />
+    <Property Name="amount" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityContainer Name="CsgoBettingModelStoreContainer">
+    <EntitySet Name="bets" EntityType="Self.bets" Schema="CsgoBetting" store:Type="Tables" />
+    <EntitySet Name="roundkeys" EntityType="Self.roundkeys" Schema="CsgoBetting" store:Type="Tables" />
+    <EntitySet Name="rounds" EntityType="Self.rounds" Schema="CsgoBetting" store:Type="Tables" />
+    <EntitySet Name="users" EntityType="Self.users" Schema="CsgoBetting" store:Type="Tables" />
+  </EntityContainer>
+</Schema>
