@@ -20,6 +20,5 @@ namespace CSGOGamble
         public System.DateTime runtime { get; set; }
         public int keyid { get; set; }
         public sbyte complete { get; set; }
-        public virtual roundkey key { get; set; }
     }
 }

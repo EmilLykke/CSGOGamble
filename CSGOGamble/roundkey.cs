@@ -18,6 +18,5 @@ namespace CSGOGamble
         public System.DateTime date { get; set; }
         public string @public { get; set; }
         public string secret { get; set; }
-        public ICollection<round> round { get; set; }
     }
 }

@@ -18,7 +18,5 @@ namespace CSGOGamble
         public string username { get; set; }
         public string steam { get; set; }
         public int amount { get; set; }
-
-        public virtual ICollection<bet> Bets { get; set; }
     }
 }

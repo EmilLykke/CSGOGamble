@@ -18,7 +18,5 @@ namespace CSGOGamble
         public int amount { get; set; }
         public int roundID { get; set; }
         public int userID { get; set; }
-
-        public virtual user user { get; set; }
     }
 }
