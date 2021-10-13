@@ -3,9 +3,10 @@
     
 }
 
+
 .body-content {
     
-    padding-top: 50px;
+    padding-top:50px;
     color: white;
     display: flex;
     justify-content: center;
@@ -18,20 +19,37 @@
     align-items: center;
 }
 
+#wheel-overlay {
+    padding: 25px;
+    
+}
+
+
 #wheel {
     position: relative;
+    
     background-image: url('../Images/stang.svg');
     background-size: auto 100px;
     height: 100px;
     width: 100%;
     background-repeat: repeat-x;
-    background-position: 550px center;
-    animation: yes 10s ease-out;
+    background-position: 100% center;
+    /*animation: yes 10s ease-out;*/
     transition: 0.25s;
-
-    /*min-width: 750px;*/
     
 }
+
+#wheel::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    z-index: 1000;
+    background-color: red;
+    width: 4px;
+    height: 100px;
+    border-radius: 15px;
+}
+
 
 @keyframes yes {
     0% {
@@ -98,5 +116,19 @@
 #choose-amount{
     display:grid;
     grid-template-columns:repeat(9,1fr);
+    
 }
 
+.col1 {
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    margin: 0px 2px;
+}
+
+.col1 button{
+    width:55px;
+    text-align:center;
+    background-color:blue;
+    border:none;
+}
