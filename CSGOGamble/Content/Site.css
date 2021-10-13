@@ -7,7 +7,12 @@
     
     padding-top: 50px;
     color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
+.center {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -45,11 +50,12 @@
     margin-bottom:50px;
 }
 
-#index-section{
-   
-    
-    
-    width:80%;
+#wheel-overlay {
+    margin-bottom: 25px;
+}
+
+#index-section {
+    width: 80%;
 }
 
 
@@ -59,4 +65,38 @@
 
 #betting-amount{
 
+    
+
 }
+
+#betting-amount-table-div {
+    border: solid;
+    border-width: 3px;
+    border-radius: 15px;
+    background-color: #2d2d39;
+}
+
+#betting-amount table td{
+    padding: 5px 10px;
+}
+
+    #betting-amount table td:first-child {
+        border-left: none;
+    }
+
+#enter-amount input {
+    background: none;
+    
+    border:none;
+}
+
+#enter-amount input:focus {
+    
+    outline:none
+}
+
+#choose-amount{
+    display:grid;
+    grid-template-columns:repeat(9,1fr);
+}
+
