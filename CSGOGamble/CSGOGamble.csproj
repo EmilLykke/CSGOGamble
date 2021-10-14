@@ -515,6 +515,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Betting\mainFunctionality.cs" />
     <Compile Include="Controllers\ApiController.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
