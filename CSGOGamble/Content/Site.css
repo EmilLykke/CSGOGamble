@@ -27,14 +27,13 @@
 
 #wheel {
     position: relative;
-    
     background-image: url('../Images/stang.svg');
     background-size: auto 100px;
     height: 100px;
     width: 100%;
     background-repeat: repeat-x;
-    background-position: 100% center;
-    /*animation: yes 10s ease-out;*/
+    background-position: 50% center;
+    animation: yes 10s;
     transition: 0.25s;
     
 }
@@ -53,13 +52,14 @@
 
 @keyframes yes {
     0% {
-        background-position: 0px center;
+        
+        background-position-x: 50%;
     }
     80% {
-        background-position: -11500px center;
+        background-position-x: 100%;
     }
     100% {
-        background-position: -11500px center;
+        background-position-x: 100%;
     }
 }
 
