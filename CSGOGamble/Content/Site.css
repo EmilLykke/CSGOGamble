@@ -92,6 +92,7 @@
     border-width: 3px;
     border-radius: 15px;
     background-color: #2d2d39;
+    border-color: #4a4e5c;
 }
 
 #betting-amount table td{
@@ -106,6 +107,7 @@
     background: none;
     
     border:none;
+    color:rgba(255,255,255, 0.57);
 }
 
 #enter-amount input:focus {
@@ -126,9 +128,22 @@
     margin: 0px 2px;
 }
 
-.col1 button{
-    width:55px;
-    text-align:center;
-    background-color:blue;
-    border:none;
-}
+    .col1 button {
+        width: 55px;
+        text-align: center;
+        color: rgba(255,255,255, 0.57);
+        background-color: rgba(51,53,65);
+        border: none;
+        border-radius: 5px;
+        box-shadow: 0 2px #4a4e5c;
+    }
+
+    .col1 button:hover {
+        background-color: #1a1a22;
+    }
+
+        .col1 button:active {
+            background-color: #272731;
+            box-shadow: 0 1px #1a1a22;
+            transform: translateY(2px);
+        }
