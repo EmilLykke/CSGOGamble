@@ -16,28 +16,28 @@
     'r15'];
 
 var pixels = [
-              10,
-30,
-50,
-70,
-90,
-110,
-130,
-150,
-170,
-190,
-210,
-230,
-250,
-270,
-290,
+    -3220,
+-3300,
+-3380,
+-3460,
+-3540,
+-3620,
+-3700,
+-3780,
+-3860,
+-3940,
+-4020,
+-4100,
+-4180,
+-4260,
+-4340,
 
 ];
-var bo = 10;
-//for (var i = 0; i < 15; i++) {
-//    console.log(' ' + bo);
-//    bo += 20;
-//}
+var bo = -3220;
+for (var i = 0; i < 15; i++) {
+    console.log(' ' + bo);
+    bo -= 80;
+}
 
 var inputFelt = document.getElementsByName('name');
 var but1 = document.getElementById('but1');
