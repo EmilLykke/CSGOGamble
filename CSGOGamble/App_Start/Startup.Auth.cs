@@ -7,6 +7,10 @@ using Owin.Security.Providers.PayPal;
 using Owin.Security.Providers.ArcGISPortal;
 using Owin.Security.Providers.Typeform;
 using Owin.Security.Providers.Steam;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.AspNetCore.DataProtection;
+using System.IO;
+using System;
 
 namespace CSGOGamble
 {
@@ -26,5 +30,15 @@ namespace CSGOGamble
             app.UseSteamAuthentication(applicationKey: "9C9C2949AB53DCE4D84ED1B30DC2C19E");
 
         }
-    }
+
+		public void ConfigureServices(IServiceCollection services)
+		{
+			services.AddDataProtection()
+			// This helps surviving a restart: a same app will find back its keys. Just ensure to create the folder.
+			.PersistKeysToFileSystem(new DirectoryInfo("/Auth/Keys/"))
+			// This helps surviving a site update: each app has its own store, building the site creates a new app
+			.SetApplicationName("MyWebsite")
+			.SetDefaultKeyLifetime(TimeSpan.FromDays(90));
+		}
+	}
 }
