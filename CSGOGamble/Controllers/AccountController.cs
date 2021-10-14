@@ -72,7 +72,6 @@ namespace CSGOGamble.Controllers
                 {
                     this.SignInUser(user.ID.ToString(), false);
                     return this.RedirectToAction("Index", "Home");
-                    this.databaseManager.SaveChanges();
                 }
                 else
                 {
@@ -92,74 +91,7 @@ namespace CSGOGamble.Controllers
         /// </summary>  
         /// <param name="returnUrl">Return URL parameter</param>  
         /// <returns>Return login view</returns>  
-        [AllowAnonymous]
-        public ActionResult Login(string returnUrl)
-        {
-            try
-            {
-                // Verification.    
-                if (this.Request.IsAuthenticated)
-                {
-                    // Info.    
-                    return this.RedirectToLocal(returnUrl);
-                }
-            }
-            catch (Exception ex)
-            {
-                // Info    
-                Console.Write(ex);
-            }
-            // Info.    
-            return this.View();
-        }
-        /// <summary>  
-        /// POST: /Account/Login    
-        /// </summary>  
-        /// <param name="model">Model parameter</param>  
-        /// <param name="returnUrl">Return URL parameter</param>  
-        /// <returns>Return login view</returns>  
-        [HttpPost]
-        [AllowAnonymous]
-        [ValidateAntiForgeryToken]
-        public ActionResult Login(LoginViewModel model, string returnUrl)
-        {
-            try
-            {
-                // Verification.    
-                if (ModelState.IsValid)
-                {
-                    // Initialization.    
-                    var loginInfo = this.databaseManager.users.FirstOrDefault(u => u.username == model.Username && u.steam == model.Password);
-                    // Verification.    
-                    if (loginInfo != null)
-                    {
-                        // Initialization.    
-                        var logindetails = loginInfo.ID.ToString();
-                        // Login In.    
-                        this.SignInUser(logindetails, false);
-                        // Info.    
-                        return this.RedirectToLocal(returnUrl);
-                    } else
-                    {
-                        // Setting.    
-                        ModelState.AddModelError(string.Empty, "Invalid username or password.");
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                // Info    
-                Console.Write(ex);
-            }
-            // If we got this far, something failed, redisplay form    
-            return this.View(model);
-        }
-        #endregion
-        #region Log Out method.    
-        /// <summary>  
-        /// POST: /Account/LogOff    
-        /// </summary>  
-        /// <returns>Return log off action</returns>  
+        
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult LogOff()
@@ -178,7 +110,7 @@ namespace CSGOGamble.Controllers
                 throw ex;
             }
             // Info.    
-            return this.RedirectToAction("Login", "Account");
+            return this.RedirectToAction("Home", "Index");
         }
         #endregion
         #region Helpers    
