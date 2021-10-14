@@ -62,10 +62,6 @@ function amount(amount1) {
     }
 
     
-    
-
-    console.log(inputFelt[0].value);
-    
 }
 
 function cal(amount1) {
