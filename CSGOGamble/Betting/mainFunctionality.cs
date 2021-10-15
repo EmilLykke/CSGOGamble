@@ -3,6 +3,7 @@ using Microsoft.AspNet.SignalR.Hubs;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,7 +19,7 @@ namespace CSGOGamble.Betting
 
         private void RunBet()
         {
-            round round;
+            rounds round;
             round = this.databaseManager.rounds.SingleOrDefault(r => r.ID == this.databaseManager.rounds.Max(x => x.ID));
             if (round != null)
             {
@@ -31,7 +32,7 @@ namespace CSGOGamble.Betting
             }
 
             int? intIdt = databaseManager.roundkeys.Max(u => (int?)u.ID);
-            roundkey key;
+            roundkeys key;
             if (intIdt != null)
             {
                 key = databaseManager.roundkeys.FirstOrDefault(u => u.ID == intIdt);
@@ -40,17 +41,17 @@ namespace CSGOGamble.Betting
                 }
                 else
                 {
-                    key = this.databaseManager.roundkeys.Add(new roundkey { secret = GetRandomString(64), @public = GetRandomString(12) });
+                    key = this.databaseManager.roundkeys.Add(new roundkeys { secret = GetRandomString(64), @public = GetRandomString(12) });
                 }
             }
             else
             {
-                key = this.databaseManager.roundkeys.Add(new roundkey { secret = GetRandomString(64), @public = GetRandomString(12) });
+                key = this.databaseManager.roundkeys.Add(new roundkeys { secret = GetRandomString(64), @public = GetRandomString(12) });
             }
-            round nextRound = this.databaseManager.rounds.Add(new round { complete = 0, keyID = key.ID, number = round.number+1});
-            this.databaseManager.SaveChanges();
             DateTime nextRoundTime = DateTime.UtcNow.AddSeconds(40);
-            connectionManager.Clients.All.sendNext(nextRoundTime, nextRound.number);
+            rounds nextRound = this.databaseManager.rounds.Add(new rounds { complete = 0, keyID = key.ID, number = round.number+1, runtime = nextRoundTime});
+            this.databaseManager.SaveChanges();
+            connectionManager.Clients.All.sendNext(nextRoundTime);
             Task.Run(() => { this.WaitBet(nextRoundTime); });
         }
 

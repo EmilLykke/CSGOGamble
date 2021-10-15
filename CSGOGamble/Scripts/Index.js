@@ -11,25 +11,49 @@ var but7 = document.getElementById('but7');
 var but8 = document.getElementById('but8');
 var but9 = document.getElementById('but9');
 
-//for (var i = 1; i < 10; i++) {
-//    console.log('var but'+i +' = document.getElementById(but'+i+');'  ); 
-//}
-    $(function () {
-            // Reference the auto-generated proxy for the hub.
-            var chat = $.connection.bettingHub;
-            // Create a function that the hub can call back to display messages.
-            chat.client.newRound = function (time, number) {
-                console.log(time)
-            };
-        });
-        // This optional function html-encodes messages for display in the page.
-        $.connection.hub.start().done(function () {
 
-    }).fail(function (error) {
-        alert("Failed to connect!");
-        });
+$(function () {
+    runto(-1);
+    CountDownTimer(new Date($("#onLoadRoundDate").data("date")));
+    var chat = $.connection.bettingHub;
+    chat.client.sendNext = function (time, number) {
+        console.log(time)
+        console.log(number)
+        CountDownTimer(new Date(time))
+    };
+    chat.client.sendResult = function (result) {
+        $("#wheel-overlay-dark").fadeOut(500);
+        var number = parseInt(result, 10)
+        if (number == 0) {
+            runto(14)
+        } else {
+            runto(number-1)
+        }
+    };
+});
+
+$.connection.hub.start().done(function () {}).fail(function (error) {alert("Failed to connect!");});
+
+function CountDownTimer(dt) {
+    var end = new Date(dt);
+
+    var timer;
+
+    function showRemaining() {
+        var now = new Date();
+        var distance = end - now;
+        $("#countdown-time").text((distance / 1000).toFixed(1));
+        if (distance < 0) {
+            clearInterval(timer);
+            return;
+        }
+    }
+
+    timer = setInterval(showRemaining, 100);
+}
 
 function runto(id) {
+
     var backgroundHeight = $("#wheel").height();
     var backgroundWidth = backgroundHeight * 15
     var numberWidth = backgroundWidth / 15;
@@ -37,15 +61,20 @@ function runto(id) {
     if (id == 0) {
         repeats = 0;
     } else {
-        repeats = backgroundWidth * Math.floor(Math.random() * (10 - 5 + 1) + 5)
+        repeats = backgroundWidth * Math.floor(Math.random() * (10 - 7 + 1) + 7)
     }
     var numberOffset = Math.floor(Math.random() * (numberWidth - -numberWidth + 1) + -numberWidth)
-    var gotoWidth = -repeats - (numberWidth * id) - numberWidth / 2 + $("#wheel").width() / 2 + numberOffset
+    var gotoWidth = -repeats - (numberWidth * id) - numberWidth / 2 + $("#wheel").width() / 2 + numberOffset / 2
+    if (id == -1) {
+        $("#wheel").animate({ 'background-position-x': -(numberWidth * 14) - numberWidth / 2 + $("#wheel").width() / 2 + 'px' }, 1000, "swing")
+        return
+    }
     //$("#wheel").css('background-position-x', gotoWidth + "px")
-    $("#wheel").animate({ 'background-position-x': gotoWidth + 'px' }, 3500, "swing", function () {
+    $("#wheel").animate({ 'background-position-x': gotoWidth + 'px' }, 10000, "swing", function () {
         console.log("Finished")
         setTimeout(function () {
-            $("#wheel").animate({ 'background-position-x': -repeats -(numberWidth * 14) - numberWidth / 2 + $("#wheel").width() / 2 + 'px' }, 1000, "swing", function () {
+            $("#wheel-overlay-dark").fadeIn(500);
+            $("#wheel").animate({ 'background-position-x': -repeats - (numberWidth * 14) - numberWidth / 2 + $("#wheel").width() / 2 + 'px' }, 1000, "swing", function () {
                 $("#wheel").css('background-position-x', -(numberWidth * 14) - numberWidth / 2 + $("#wheel").width() / 2 + 'px')
             })
         }, 2000)

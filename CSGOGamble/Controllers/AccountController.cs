@@ -75,7 +75,7 @@ namespace CSGOGamble.Controllers
                 }
                 else
                 {
-                    user = this.databaseManager.users.Add(new user { username = loginInfo.DefaultUserName, steam = loginInfo.Login.ProviderKey, amount = 0 });
+                    user = this.databaseManager.users.Add(new users { username = loginInfo.DefaultUserName, steam = loginInfo.Login.ProviderKey, amount = 0 });
                     // Login In.    
                     this.SignInUser(user.ID.ToString(), false);
                     // Info.    

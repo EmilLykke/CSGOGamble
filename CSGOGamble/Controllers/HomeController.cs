@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CSGOGamble.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -12,16 +13,21 @@ namespace CSGOGamble.Controllers
 
         public ActionResult Index()
         {
-            user model;
-            if(Request.IsAuthenticated)
+            rounds round = this.databaseManager.rounds.SingleOrDefault(r => r.ID == this.databaseManager.rounds.Max(x => x.ID));
+            betModel bets = new betModel(30, 10.0, new List<bet> {new bet("aske", 10.0, "dice"), new bet("aske", 10.0, "dice")});
+            IndexModel model = new IndexModel(null, double.NaN, bets, round.runtime);
+
+            if (Request.IsAuthenticated)
             {
                 string id = User.Identity.Name;
                 int idint = Int32.Parse(id);
-                model = this.databaseManager.users.SingleOrDefault(u => u.ID == idint);
+                users user = this.databaseManager.users.SingleOrDefault(u => u.ID == idint);
+                model.Username = user.username;
+                model.Amount = user.amount;
                 return View(model);
             } else
             {
-                return View();
+                return View(model);
             }
         }
 

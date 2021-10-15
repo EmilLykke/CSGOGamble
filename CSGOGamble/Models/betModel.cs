@@ -9,9 +9,9 @@ namespace CSGOGamble.Models
     {
 
         public int roundId { get; set; }
-        public float totalAmount { get; set; }
+        public double totalAmount { get; set; }
         public List<bet> bets { get; set; }
-        public betModel (int roundId, float totalAmount, List<bet> bets)
+        public betModel (int roundId, double totalAmount, List<bet> bets)
         {
             this.bets = bets;
             this.totalAmount = totalAmount;
@@ -22,9 +22,9 @@ namespace CSGOGamble.Models
     public class bet
     {
         public string user_name { get; set; }
-        public float amount { get; set; }
+        public double amount { get; set; }
         public string color { get; set; }
-        public bet(string user_name, float amount, string color)
+        public bet(string user_name, double amount, string color)
         {
             this.amount = amount;
             this.user_name = user_name;

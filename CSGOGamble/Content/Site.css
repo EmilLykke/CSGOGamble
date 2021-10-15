@@ -20,10 +20,44 @@
 }
 
 #wheel-overlay {
-    padding: 0 25px 0 25px;
-    
+    padding: 25px 0px 25px 0px;
+    position: relative;
 }
 
+#wheel-overlay-dark {
+    z-index: 6;
+    background: #1a1a22a3;
+    position: absolute;
+    width: 100%;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#countdown-text {
+    font-size: 25px;
+    z-index: 10;
+    font-weight: 500;
+}
+
+#wheel-overlay-left {
+    z-index: 5;
+    position: absolute;
+    background: linear-gradient(270deg, rgba(0,0,0,0) 0%, rgba(26,26,34,0.6615021008403361) 39%, rgba(26,26,34,1) 100%);
+    width: 10%;
+    left: 0;
+    height: 100px;
+}
+
+#wheel-overlay-right {
+    z-index: 5;
+    position: absolute;
+    background: linear-gradient(90deg, rgba(0,0,0,0) 0%, rgba(26,26,34,0.6615021008403361) 39%, rgba(26,26,34,1) 100%);
+    width: 10%;
+    right: 0;
+    height: 100px;
+}
 
 #wheel {
     position: relative;
@@ -39,19 +73,15 @@
     content: '';
     position: absolute;
     left: 50%;
-    z-index: 1000;
+    z-index: 4;
     background-color: red;
-    width: 4px;
+    width: 3px;
     height: 100px;
     border-radius: 15px;
 }
 
-
-
-
 #index-wheel {
-    
-    margin-bottom:50px;
+    margin-bottom: 50px;
 }
 
 #wheel-overlay {

@@ -26,7 +26,7 @@ namespace CSGOGamble.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            user user = db.users.Find(id);
+            users user = db.users.Find(id);
             if (user == null)
             {
                 return HttpNotFound();
@@ -45,7 +45,7 @@ namespace CSGOGamble.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,username,steam,amount")] user user)
+        public ActionResult Create([Bind(Include = "ID,username,steam,amount")] users user)
         {
             if (ModelState.IsValid)
             {
@@ -64,7 +64,7 @@ namespace CSGOGamble.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            user user = db.users.Find(id);
+            users user = db.users.Find(id);
             if (user == null)
             {
                 return HttpNotFound();
@@ -77,7 +77,7 @@ namespace CSGOGamble.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,username,steam,amount")] user user)
+        public ActionResult Edit([Bind(Include = "ID,username,steam,amount")] users user)
         {
             if (ModelState.IsValid)
             {
@@ -95,7 +95,7 @@ namespace CSGOGamble.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            user user = db.users.Find(id);
+            users user = db.users.Find(id);
             if (user == null)
             {
                 return HttpNotFound();
@@ -108,7 +108,7 @@ namespace CSGOGamble.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            user user = db.users.Find(id);
+            users user = db.users.Find(id);
             db.users.Remove(user);
             db.SaveChanges();
             return RedirectToAction("Index");
