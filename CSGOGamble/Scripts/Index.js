@@ -1,43 +1,4 @@
-﻿var coins = [
-'r1',
-'r2',
-'r3',
-'r4',
-'r5',
-'r6',
-'r7',
-'r8',
-'r9',
-'r10',
-'r11',
-'r12',
-'r13',
-'r14',
-    'r15'];
-
-var pixels = [
-    -3220,
--3300,
--3380,
--3460,
--3540,
--3620,
--3700,
--3780,
--3860,
--3940,
--4020,
--4100,
--4180,
--4260,
--4340,
-
-];
-var bo = -3220;
-for (var i = 0; i < 15; i++) {
-    console.log(' ' + bo);
-    bo -= 80;
-}
+﻿
 
 var inputFelt = document.getElementsByName('name');
 var but1 = document.getElementById('but1');
