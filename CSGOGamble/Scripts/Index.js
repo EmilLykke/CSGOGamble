@@ -64,9 +64,17 @@ function runto(id) {
     } else {
         repeats = backgroundWidth * Math.floor(Math.random() * (10 - 5 + 1) + 5)
     }
-    var gotoWidth = -repeats -(numberWidth * id) - numberWidth / 2 + $("#wheel").width()/2
-    $("#wheel").css('background-position-x', gotoWidth + "px")
-
+    var numberOffset = Math.floor(Math.random() * (numberWidth - -numberWidth + 1) + -numberWidth)
+    var gotoWidth = -repeats - (numberWidth * id) - numberWidth / 2 + $("#wheel").width() / 2 + numberOffset
+    //$("#wheel").css('background-position-x', gotoWidth + "px")
+    $("#wheel").animate({ 'background-position-x': gotoWidth + 'px' }, 3500, "swing", function () {
+        console.log("Finished")
+        setTimeout(function () {
+            $("#wheel").animate({ 'background-position-x': -repeats -(numberWidth * 14) - numberWidth / 2 + $("#wheel").width() / 2 + 'px' }, 1000, "swing", function () {
+                $("#wheel").css('background-position-x', -(numberWidth * 14) - numberWidth / 2 + $("#wheel").width() / 2 + 'px')
+            })
+        }, 2000)
+    });
 }
 
 function amount(amount1) {

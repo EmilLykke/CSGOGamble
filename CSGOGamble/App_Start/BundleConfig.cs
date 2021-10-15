@@ -26,7 +26,8 @@ namespace CSGOGamble
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/site.css",
-                      "~/Content/Navbar.css"));
+                      "~/Content/Navbar.css",
+                      "~/Content/jquery-ui.min.css"));
         }
     }
 }

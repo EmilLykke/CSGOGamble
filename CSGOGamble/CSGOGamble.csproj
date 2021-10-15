@@ -561,6 +561,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\jquery-ui.min.css" />
     <Content Include="Content\Navbar.css" />
     <Content Include="Database.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
