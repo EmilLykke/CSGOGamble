@@ -1,9 +1,8 @@
 {
   "ExpandedNodes": [
     "",
-    "\\CSGOGamble",
-    "\\CSGOGamble\\Controllers"
+    "\\CSGOGamble"
   ],
-  "SelectedNode": "\\CSGOGamble\\Controllers\\AccountController.cs",
+  "SelectedNode": "\\CSGOGamble\\CSGOGamble.sln",
   "PreviewInSolutionExplorer": false
 }

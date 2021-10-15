@@ -11,10 +11,10 @@ namespace CSGOGamble
 {
     public class BettingHub : Hub
     {
-        public void SendAllBets(List<betModel> bets)
+        public void SendAllBets(string bets)
         {
             // Call the broadcastMessage method to update clients.
-            Clients.All.broadcastMessage(bets);
+            Clients.All.sendBets(bets);
         }
     }
 }

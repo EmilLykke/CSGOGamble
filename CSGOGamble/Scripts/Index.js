@@ -14,6 +14,20 @@ var but9 = document.getElementById('but9');
 //for (var i = 1; i < 10; i++) {
 //    console.log('var but'+i +' = document.getElementById(but'+i+');'  ); 
 //}
+    $(function () {
+            // Reference the auto-generated proxy for the hub.
+            var chat = $.connection.bettingHub;
+            // Create a function that the hub can call back to display messages.
+            chat.client.newRound = function (time, number) {
+                console.log(time)
+            };
+        });
+        // This optional function html-encodes messages for display in the page.
+        $.connection.hub.start().done(function () {
+
+    }).fail(function (error) {
+        alert("Failed to connect!");
+        });
 
 function runto(id) {
     var backgroundHeight = $("#wheel").height();

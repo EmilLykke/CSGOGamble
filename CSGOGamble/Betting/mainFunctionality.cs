@@ -18,49 +18,40 @@ namespace CSGOGamble.Betting
 
         private void RunBet()
         {
+            round round;
+            round = this.databaseManager.rounds.SingleOrDefault(r => r.ID == this.databaseManager.rounds.Max(x => x.ID));
+            if (round != null)
+            {
+                string String = round.RoundKey.secret + "-" + round.RoundKey.@public + "-" + round.number;
+                string hashedString = GetStringSha256Hash(String).ToLower();
+                long result = Int64.Parse(hashedString.Substring(0, 8), System.Globalization.NumberStyles.HexNumber) % 15;
+                connectionManager.Clients.All.sendResult(result.ToString());
+                round.complete = 1;
+                round.outcome = (int)result;
+            }
+
             int? intIdt = databaseManager.roundkeys.Max(u => (int?)u.ID);
-            string secret_key;
-            string client_key;
-            int roundNumber;
             roundkey key;
             if (intIdt != null)
             {
                 key = databaseManager.roundkeys.FirstOrDefault(u => u.ID == intIdt);
-                if(key != null && key.date.Date == DateTime.UtcNow.Date)
+                if (key != null && key.date.Date == DateTime.UtcNow.Date)
                 {
-                    secret_key = key.secret;
-                    client_key = key.@public;
-                } else
+                }
+                else
                 {
                     key = this.databaseManager.roundkeys.Add(new roundkey { secret = GetRandomString(64), @public = GetRandomString(12) });
-                    this.databaseManager.SaveChanges();
-                    secret_key = key.secret;
-                    client_key = key.@public;
                 }
             }
             else
             {
                 key = this.databaseManager.roundkeys.Add(new roundkey { secret = GetRandomString(64), @public = GetRandomString(12) });
-                this.databaseManager.SaveChanges();
-                secret_key = key.secret;
-                client_key = key.@public;
             }
-
-            round round = this.databaseManager.rounds.SingleOrDefault(r => r.ID == this.databaseManager.rounds.Where(x => x.keyid == key.ID).Max(x => x.ID));
-            if (round != null)
-            {
-                roundNumber = round.number + 1;
-            }
-            else
-            {
-                roundNumber = 1;
-            }
-            string String = secret_key + "-" + client_key + "-" + roundNumber;
-            string hashedString = GetStringSha256Hash(String).ToLower();
-            long result = Int64.Parse(hashedString.Substring(0, 8), System.Globalization.NumberStyles.HexNumber) % 15;
-            this.databaseManager.rounds.Add(new round { complete = 1, keyid = key.ID, number = roundNumber, outcome = (int)result });
+            round nextRound = this.databaseManager.rounds.Add(new round { complete = 0, keyID = key.ID, number = round.number+1});
             this.databaseManager.SaveChanges();
-            Task.Run(() => { this.WaitBet(DateTime.UtcNow.AddSeconds(40)); });
+            DateTime nextRoundTime = DateTime.UtcNow.AddSeconds(40);
+            connectionManager.Clients.All.sendNext(nextRoundTime, nextRound.number);
+            Task.Run(() => { this.WaitBet(nextRoundTime); });
         }
 
         private void WaitBet(DateTime runtime)
