@@ -20,22 +20,20 @@
 }
 
 #wheel-overlay {
-    padding: 25px;
+    padding: 0 25px 0 25px;
     
 }
 
 
 #wheel {
     position: relative;
-    background-image: url('../Images/stang.svg');
+    background-image: url('../Images/coinspng.png');
     background-size: auto 100px;
+    background-position-x: left;
     height: 100px;
     width: 100%;
     background-repeat: repeat-x;
-    background-position: 50% center;
-    animation: yes 10s;
-    transition: 0.25s;
-    
+    transition: 10000ms;
 }
 
 #wheel::before {

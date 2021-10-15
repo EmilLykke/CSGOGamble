@@ -1,6 +1,7 @@
 ﻿using CSGOGamble.Betting;
 using Microsoft.Owin;
 using Owin;
+using System.Threading.Tasks;
 
 [assembly: OwinStartupAttribute(typeof(CSGOGamble.Startup))]
 namespace CSGOGamble
@@ -11,8 +12,8 @@ namespace CSGOGamble
         {
             ConfigureAuth(app);
             app.MapSignalR();
-            //mainFunctionality bettingObject = new mainFunctionality();
-            //bettingObject.Start();
+            mainFunctionality bettingObject = new mainFunctionality();
+            Task.Run(() => { bettingObject.Start(); });
         }
     }
 }

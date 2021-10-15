@@ -1,8 +1,11 @@
-﻿using System;
+﻿using Microsoft.AspNet.SignalR;
+using Microsoft.AspNet.SignalR.Hubs;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using System.Web;
 
 namespace CSGOGamble.Betting
@@ -10,6 +13,9 @@ namespace CSGOGamble.Betting
     public class mainFunctionality
     {
         private CsgoBettingEntities1 databaseManager = new CsgoBettingEntities1();
+
+        IHubContext connectionManager = GlobalHost.ConnectionManager.GetHubContext<BettingHub>();
+
         private void RunBet()
         {
             int? intIdt = databaseManager.roundkeys.Max(u => (int?)u.ID);
@@ -52,11 +58,14 @@ namespace CSGOGamble.Betting
             string String = secret_key + "-" + client_key + "-" + roundNumber;
             string hashedString = GetStringSha256Hash(String).ToLower();
             long result = Int64.Parse(hashedString.Substring(0, 8), System.Globalization.NumberStyles.HexNumber) % 15;
-            WaitBet(DateTime.UtcNow.AddSeconds(40));
+            this.databaseManager.rounds.Add(new round { complete = 1, keyid = key.ID, number = roundNumber, outcome = (int)result });
+            this.databaseManager.SaveChanges();
+            Task.Run(() => { this.WaitBet(DateTime.UtcNow.AddSeconds(40)); });
         }
 
         private void WaitBet(DateTime runtime)
         {
+
             Debug.WriteLine(DateTime.Compare(DateTime.UtcNow, runtime));
             while (DateTime.Compare(DateTime.UtcNow, runtime) <= 0)
             {

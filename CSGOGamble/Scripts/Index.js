@@ -54,6 +54,21 @@ var but9 = document.getElementById('but9');
 //    console.log('var but'+i +' = document.getElementById(but'+i+');'  ); 
 //}
 
+function runto(id) {
+    var backgroundHeight = $("#wheel").height();
+    var backgroundWidth = backgroundHeight * 15
+    var numberWidth = backgroundWidth / 15;
+    var repeats;
+    if (id == 0) {
+        repeats = 0;
+    } else {
+        repeats = backgroundWidth * Math.floor(Math.random() * (10 - 5 + 1) + 5)
+    }
+    var gotoWidth = -repeats -(numberWidth * id) - numberWidth / 2 + $("#wheel").width()/2
+    $("#wheel").css('background-position-x', gotoWidth + "px")
+
+}
+
 function amount(amount1) {
     if (amount1 == 'clear') {
         inputFelt[0].value = "";
