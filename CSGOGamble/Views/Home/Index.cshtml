@@ -21,20 +21,20 @@
                     <tr>
                         <td>
                             <div id="enter-amount">
-                                <input type="type" name="name" value="" />
+                                <input type="type" name="name" placeholder="Enter amount..." />
                             </div>
                         </td>
                         <td>
                             <div id="choose-amount">
-                                <div class="col1"><button>Clear</button></div>
-                                <div class="col1"><button>+0.01</button></div>
-                                <div class="col1"><button>+0.1</button></div>
-                                <div class="col1"><button>+1</button></div>
-                                <div class="col1"><button>+10</button></div>
-                                <div class="col1"><button>+100</button></div>
-                                <div class="col1"><button>1/2</button></div>
-                                <div class="col1"><button>X2</button></div>
-                                <div class="col1"><button>MAX</button></div>
+                                <div class="col1" id="but1" ><button onclick="amount('clear')">Clear</button></div>
+                                <div class="col1" id="but2" ><button onclick="amount(0.01)">+0.01</button></div>
+                                <div class="col1" id="but3" ><button onclick="amount(0.1)">+0.1</button></div>
+                                <div class="col1" id="but4" ><button onclick="amount(1)">+1</button></div>
+                                <div class="col1" id="but5" ><button onclick="amount(10)">+10</button></div>
+                                <div class="col1" id="but6" ><button onclick="amount(100)">+100</button></div>
+                                <div class="col1" id="but7" ><button onclick="amount(0.5)">1/2</button></div>
+                                <div class="col1" id="but8" ><button onclick="amount(2)">X2</button></div>
+                                <div class="col1" id="but9" ><button onclick="amount(-1)">MAX</button></div>
                             </div>
                         </td>
                     </tr>
