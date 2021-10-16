@@ -280,3 +280,86 @@
 #last10-10{
 
 }
+
+#ct-bet{
+
+}
+#t-bet{
+
+}
+#jack-bet{
+
+}
+
+.bet-but {
+    width: 100%;
+    background-color: #4a4e5c;
+    border-radius: 0.5rem;
+    border: none;
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+    box-shadow: 0 4px #2e2e3d;
+}
+
+    .bet-but:active {
+        transform: translateY(4px);
+        box-shadow: 0 0 #2e2e3d;
+    }
+
+    .bet-but-grid {
+        /*display:grid;
+    grid-template-columns:0.5fr 3.5fr 1.25fr;*/
+        display: flex;
+        width: 100%;
+        margin: 0px 5px;
+    }
+    
+
+        .bet-but-grid div h5 {
+            font-size: 16px;
+            color:white;
+            font-weight:700;
+        }
+
+
+    .bet-but-grid div img {
+        width: 40px;
+        height: auto;
+        margin: 5px;
+    }
+
+h4{
+    margin:0;
+}
+h5{
+    margin:0;
+}
+
+.space{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    width:100%;
+}
+
+.bets-style {
+    background-color: #131419;
+    
+    border-radius:0.5rem;
+    border-width:0.5px;
+    border-color:black;
+    border-style:solid;
+    overflow:hidden;
+}
+
+.total-bets {
+    width: 100%;
+    border-width: 0.5px;
+    border-color: black;
+    border-style: solid;
+}
+
+.all-bets {
+    padding: 15px;
+}
