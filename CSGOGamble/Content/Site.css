@@ -223,18 +223,30 @@
 #last10 {
     display: grid;
     grid-template-columns: repeat(1fr,10);
+    
 }
 
 .last-margin {
     width: 20px;
     height: 20px;
     margin: 0px 3px;
-}
-
-
-#last10-1 {
     
 }
+
+#last100-counter{
+
+}
+
+#last100-terror{
+
+}
+#last100-jackpot{
+
+}
+
+#last10-1 {
+}
+
 #last10-2 {
     
 }

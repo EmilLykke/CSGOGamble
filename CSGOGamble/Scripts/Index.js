@@ -1,8 +1,8 @@
 ﻿
 
 var inputFelt = document.getElementsByName('name');
-
-
+var coins = [];
+var last_100 = [];
 
 $(function () {
     runto(-1);
@@ -68,6 +68,7 @@ function runto(id) {
         setTimeout(function () {
             $("#wheel-overlay-dark").fadeIn(500);
             pushCoin(id);
+            last100(id);
             $("#wheel").animate({ 'background-position-x': -repeats - (numberWidth * 14) - numberWidth / 2 + $("#wheel").width() / 2 + 'px' }, 1000, "swing", function () {
                 $("#wheel").css('background-position-x', -(numberWidth * 14) - numberWidth / 2 + $("#wheel").width() / 2 + 'px')
             })
@@ -121,10 +122,14 @@ var last10_9 = document.getElementById('last10-9');
 var last10_10 = document.getElementById('last10-10');
 
 
-var coins = [];
+for (var i = 0; i < 10; i++) {
+    pushCoin(i);
+}
+
+
 function pushCoin(id) {
-    console.log(coins.length);
-    if (coins.lenght > 9) {
+    //console.log(coins.length);
+    if (coins.length > 9) {
         coins.shift();
         coins.push(id);
     } else {
@@ -132,16 +137,16 @@ function pushCoin(id) {
     }
     
     var num =0;
-    for (var i = 0; i < coins.length-1; i++) {
+    for (var i = 0; i <= coins.length-1; i++) {
         num = i + 1;
         if (coins[i] == 0) {
-
             document.getElementById('last10-' + num).style.backgroundImage = "url('../Images/jackpot.svg')";
-        }
-        if (coins[i] % 2 != 0) {
+        } else if (coins[i] % 2 == 0) {
+            
             document.getElementById('last10-' + num).style.backgroundImage = "url('../Images/counter.svg')";
             
-        } else{
+        } else {
+            
             document.getElementById('last10-' + num).style.backgroundImage = "url('../Images/terrorist.svg')";
         }
         
@@ -150,5 +155,49 @@ function pushCoin(id) {
     
 }
 
+for (var i = 0; i < 100; i++) {
+    last100(i);
+}
 
+var counter = 0;
+var terror = 0;
+var jackpot = 0;
 
+function last100(id) {
+    //console.log(last_100.length);
+    if (last_100.length > 99) {
+        last_100.shift();
+        last_100.push(id);
+    } else {
+        last_100.push(id);
+    }
+    var num1 = 0;
+    var num2 = 0;
+    var num3 = 0;
+
+    for (var i = 0; i <= last_100.length - 1; i++) {
+        
+        if (last_100[i] == 0) {
+            num1++;
+            
+
+        } else if (last_100[i] % 2 == 0) {
+            num2++;
+            
+
+        } else {
+            num3++;
+            
+        }
+
+    }
+
+    jackpot = num1;
+    counter = num2;
+    terror = num3;
+
+    document.getElementById('last100-jackpot').innerHTML = jackpot;
+    document.getElementById('last100-counter').innerHTML = counter;
+    document.getElementById('last100-terror').innerHTML = terror;
+
+}
