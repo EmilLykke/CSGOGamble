@@ -10,7 +10,7 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="amount" Type="int" Nullable="false" />
+          <Property Name="amount" Type="double" Nullable="false" />
           <Property Name="roundID" Type="int" Nullable="false" />
           <Property Name="userID" Type="int" Nullable="false" />
         </EntityType>
@@ -30,7 +30,7 @@
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="number" Type="int" Nullable="false" />
           <Property Name="outcome" Type="int" />
-          <Property Name="runtime" Type="datetime" Precision="0" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="runtime" Type="datetime" Precision="0" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="keyID" Type="int" Nullable="false" />
           <Property Name="complete" Type="tinyint" Nullable="false" />
         </EntityType>
@@ -41,7 +41,7 @@
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="username" Type="varchar" MaxLength="256" Nullable="false" />
           <Property Name="steam" Type="varchar" MaxLength="256" Nullable="false" />
-          <Property Name="amount" Type="int" Nullable="false" />
+          <Property Name="amount" Type="double" Nullable="false" />
         </EntityType>
         <EntityContainer Name="CsgoBettingModelStoreContainer">
           <EntitySet Name="bets" EntityType="Self.bets" Schema="CsgoBetting" store:Type="Tables" />
@@ -58,7 +58,7 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="amount" Type="Int32" Nullable="false" />
+          <Property Name="amount" Type="Double" Nullable="false" />
           <Property Name="roundID" Type="Int32" Nullable="false" />
           <Property Name="userID" Type="Int32" Nullable="false" />
         </EntityType>
@@ -91,7 +91,7 @@
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="username" Type="String" MaxLength="256" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="steam" Type="String" MaxLength="256" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="amount" Type="Int32" Nullable="false" />
+          <Property Name="amount" Type="Double" Nullable="false" />
         </EntityType>
         <EntityContainer Name="CsgoBettingEntities1" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="bets" EntityType="Self.bets" />
