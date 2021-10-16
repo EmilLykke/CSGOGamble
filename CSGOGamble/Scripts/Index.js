@@ -112,3 +112,13 @@ function cal(amount1) {
 
     inputFelt[0].value = val.toFixed(2);
 }
+
+
+
+function pushCoin(id){
+    var coins = [];
+
+}
+
+
+
