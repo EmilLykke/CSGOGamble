@@ -18,5 +18,6 @@ namespace CSGOGamble
         public double amount { get; set; }
         public int roundID { get; set; }
         public int userID { get; set; }
+        public string color { get; set; }
     }
 }

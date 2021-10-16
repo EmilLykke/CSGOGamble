@@ -13,6 +13,7 @@
           <Property Name="amount" Type="double" Nullable="false" />
           <Property Name="roundID" Type="int" Nullable="false" />
           <Property Name="userID" Type="int" Nullable="false" />
+          <Property Name="color" Type="varchar" MaxLength="20" Nullable="false" />
         </EntityType>
         <EntityType Name="roundkeys">
           <Key>
@@ -61,6 +62,7 @@
           <Property Name="amount" Type="Double" Nullable="false" />
           <Property Name="roundID" Type="Int32" Nullable="false" />
           <Property Name="userID" Type="Int32" Nullable="false" />
+          <Property Name="color" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="roundkeys">
           <Key>
@@ -124,6 +126,7 @@
           <EntitySetMapping Name="bets">
             <EntityTypeMapping TypeName="CsgoBettingModel.bets">
               <MappingFragment StoreEntitySet="bets">
+                <ScalarProperty Name="color" ColumnName="color" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="amount" ColumnName="amount" />
                 <ScalarProperty Name="roundID" ColumnName="roundID" />
