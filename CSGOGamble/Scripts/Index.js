@@ -34,6 +34,14 @@ $(function () {
 
 $.connection.hub.start().done(function () {}).fail(function (error) {alert("Failed to connect!");});
 
+function bet(amount) {
+    $.post('https://localhost:44344//Api/Bet', { amount: 10.0 }, function (data1)
+    {
+            console.log(data1)
+        }
+    )
+}
+
 function CountDownTimer(dt) {
     var end = new Date(dt);
 
@@ -67,7 +75,7 @@ function runto(id) {
     var gotoWidth = -repeats - (numberWidth * id) - numberWidth / 2 + $("#wheel").width() / 2 + numberOffset / 2
     if (id == -1) {
         $("#wheel").animate({ 'background-position-x': -(numberWidth * 14) - numberWidth / 2 + $("#wheel").width() / 2 + 'px' }, 1000, "swing")
-        return
+        return;
     }
     //$("#wheel").css('background-position-x', gotoWidth + "px")
     $("#wheel").animate({ 'background-position-x': gotoWidth + 'px' }, 10000, "swing", function () {
