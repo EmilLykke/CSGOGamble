@@ -549,7 +549,9 @@
     </Compile>
     <Compile Include="Models\AccountViewModel.cs" />
     <Compile Include="Models\betModel.cs" />
+    <Compile Include="Models\BetResult.cs" />
     <Compile Include="Models\IndexModel.cs" />
+    <Compile Include="Models\PostError.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="roundkeys.cs">
       <DependentUpon>DataBase.tt</DependentUpon>

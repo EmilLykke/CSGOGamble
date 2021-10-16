@@ -17,6 +17,6 @@ namespace CSGOGamble
         public int ID { get; set; }
         public string username { get; set; }
         public string steam { get; set; }
-        public int amount { get; set; }
+        public double amount { get; set; }
     }
 }
