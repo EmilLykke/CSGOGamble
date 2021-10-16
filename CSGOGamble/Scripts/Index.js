@@ -1,15 +1,7 @@
 ﻿
 
 var inputFelt = document.getElementsByName('name');
-var but1 = document.getElementById('but1');
-var but2 = document.getElementById('but2');
-var but3 = document.getElementById('but3');
-var but4 = document.getElementById('but4');
-var but5 = document.getElementById('but5');
-var but6 = document.getElementById('but6');
-var but7 = document.getElementById('but7');
-var but8 = document.getElementById('but8');
-var but9 = document.getElementById('but9');
+
 
 
 $(function () {
@@ -69,11 +61,13 @@ function runto(id) {
         $("#wheel").animate({ 'background-position-x': -(numberWidth * 14) - numberWidth / 2 + $("#wheel").width() / 2 + 'px' }, 1000, "swing")
         return
     }
+    
     //$("#wheel").css('background-position-x', gotoWidth + "px")
     $("#wheel").animate({ 'background-position-x': gotoWidth + 'px' }, 10000, "swing", function () {
         console.log("Finished")
         setTimeout(function () {
             $("#wheel-overlay-dark").fadeIn(500);
+            pushCoin(id);
             $("#wheel").animate({ 'background-position-x': -repeats - (numberWidth * 14) - numberWidth / 2 + $("#wheel").width() / 2 + 'px' }, 1000, "swing", function () {
                 $("#wheel").css('background-position-x', -(numberWidth * 14) - numberWidth / 2 + $("#wheel").width() / 2 + 'px')
             })
@@ -113,11 +107,47 @@ function cal(amount1) {
     inputFelt[0].value = val.toFixed(2);
 }
 
+// 0 coin
+// 1 counter 
+var last10_1 = document.getElementById('last10-1');
+var last10_2 = document.getElementById('last10-2');
+var last10_3 = document.getElementById('last10-3');
+var last10_4 = document.getElementById('last10-4');
+var last10_5 = document.getElementById('last10-5');
+var last10_6 = document.getElementById('last10-6');
+var last10_7 = document.getElementById('last10-7');
+var last10_8 = document.getElementById('last10-8');
+var last10_9 = document.getElementById('last10-9');
+var last10_10 = document.getElementById('last10-10');
 
 
-function pushCoin(id){
-    var coins = [];
+var coins = [];
+function pushCoin(id) {
+    console.log(coins.length);
+    if (coins.lenght > 9) {
+        coins.shift();
+        coins.push(id);
+    } else {
+        coins.push(id);
+    }
+    
+    var num =0;
+    for (var i = 0; i < coins.length-1; i++) {
+        num = i + 1;
+        if (coins[i] == 0) {
 
+            document.getElementById('last10-' + num).style.backgroundImage = "url('../Images/jackpot.svg')";
+        }
+        if (coins[i] % 2 != 0) {
+            document.getElementById('last10-' + num).style.backgroundImage = "url('../Images/counter.svg')";
+            
+        } else{
+            document.getElementById('last10-' + num).style.backgroundImage = "url('../Images/terrorist.svg')";
+        }
+        
+        
+    }
+    
 }
 
 
