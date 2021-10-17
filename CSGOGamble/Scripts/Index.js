@@ -22,16 +22,27 @@ $(function () {
             runto(number-1)
         }
     };
+    chat.client.sendNewBet = function (username, amount, color) {
+        addNewBet(color, amount, username);
+    }
 });
 
 $.connection.hub.start().done(function () {}).fail(function (error) {alert("Failed to connect!");});
 
-function bet(amount) {
-    $.post('https://localhost:44344//Api/Bet', { amount: 10.0 }, function (data1)
-    {
-            console.log(data1)
+function bet(color) {
+    var amount = $('input[name=name]').val()
+    if (parseFloat(amount) > parseFloat($("#balance").text())) {
+        return;
+    }
+    console.log(color);
+    console.log(amount);
+    $.post('https://localhost:44344//Api/Bet', { amountString: amount, color: color }, function (data1) {
+        console.log(data1)
+        if (!data1.eror) {
+            $("#balance").text((data1.newAmount).toFixed(2))
+        } else {
         }
-    )
+    })
 }
 
 function CountDownTimer(dt) {
@@ -113,8 +124,6 @@ function amount(amount1) {
     } else {
         cal(amount1);
     }
-
-    
 }
 
 function cal(amount1) {
@@ -127,7 +136,7 @@ function cal(amount1) {
         val *= amount1;
     }
     else if (amount1 == -1) {
-        val += 10000000;
+        val = parseFloat($("#balance").text());
     }
     else if (amount1 == 2) {
         val *= amount1;
@@ -237,13 +246,13 @@ function last100(id) {
 
 
 
-function betting(coin) {
+function addNewBet(color, amount, username) {
     var chosenCoin;
-    if (coin == "ct") {
+    if (color == "counter") {
         chosenCoin = "counter-entries";
-    } else if (coin == "jackpot") {
+    } else if (color == "jackpot") {
         chosenCoin = "jackpot-entries";
-    } else if(coin == "t"){
+    } else if (color == "terrorist"){
         chosenCoin = "terror-entries";
     }
 
@@ -258,14 +267,14 @@ function betting(coin) {
 
     var firstP = document.createElement("p");
     firstP.id = "personName";
-    firstP.innerHTML = "bo";
+    firstP.innerHTML = username;
     secondDiv.appendChild(firstP);
     var secondP = document.createElement("p");
     secondP.id = "amount";
     var val = document.getElementsByName("name");
     var val1 = val[0].value;
     
-    secondP.innerHTML = val1;
+    secondP.innerHTML = amount;
     secondDiv.appendChild(secondP);
 
     area.appendChild(firstDiv);
