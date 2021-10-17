@@ -102,7 +102,7 @@
     
     <div class="row">
         <div class="col-md-4">
-            <button id="ct-bet" class="bet-but">
+            <button id="ct-bet" class="bet-but" onclick="betting('ct')">
                 <div class="bet-but-grid">
                     <div >
                         <img src="~/Images/counter.svg" />
@@ -122,21 +122,26 @@
             </button>
             <div class="bets-style">
                 <div class="total-bets">
-                    hej
+                    <div class="total-bets-col1">
+                        <p class="margin-right-entries" id="counter-total-entries">
+                            12
+                        </p>
+                        <p> Bets Total</p>
+                    </div>
+                    <div class="total-bets-col2">
+                        <img class="margin-right-entries" src="~/Images/coinstack.svg" />
+                        <p id="total-amount-counter">50,23</p>
+                    </div>
                 </div>
-                <div class="all-bets">
-                    <p>
-                        ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-                        enables a clean separation of concerns and gives you full control over markup
-                        for enjoyable, agile development.
-                    </p>
+                <div class="all-bets" id="counter-entries">
+                   
                 </div>
                 
             </div>
             
         </div>
         <div class="col-md-4">
-            <button id="jack-bet" class="bet-but">
+            <button id="jack-bet" class="bet-but" onclick="betting('jackpot')">
                 <div class="bet-but-grid">
                     <div>
                         <img src="~/Images/jackpot.svg" />
@@ -156,16 +161,24 @@
             </button>
             <div class="bets-style">
                 <div class="total-bets">
-                    hej
+                    <div class="total-bets-col1">
+                        <p class="margin-right-entries" id="jackpot-total-entries">
+                            12
+                        </p>
+                        <p> Bets Total</p>
+                    </div>
+                    <div class="total-bets-col2">
+                        <img class="margin-right-entries" src="~/Images/coinstack.svg" />
+                        <p id="total-amount-jackpot">50,23</p>
+                    </div>
                 </div>
-                <div class="all-bets">
-                    <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
+                <div class="all-bets" id="jackpot-entries">
                 </div>
             </div>
             
         </div>
         <div class="col-md-4">
-            <button id="t-bet" class="bet-but">
+            <button id="t-bet" class="bet-but" onclick="betting('t')">
                 <div class="bet-but-grid">
                     <div>
                         <img src="~/Images/terrorist.svg" />
@@ -185,10 +198,19 @@
             </button>
             <div class="bets-style">
                 <div class="total-bets">
-                    hej
+                    <div class="total-bets-col1">
+                        <p class="margin-right-entries" id="terror-total-entries">
+                            12
+                        </p>
+                        <p> Bets Total</p>
+                    </div>
+                    <div class="total-bets-col2">
+                        <img class="margin-right-entries" src="~/Images/coinstack.svg" />
+                        <p id="total-amount-terror">50,23</p>
+                    </div>
                 </div>
-                <div class="all-bets">
-                    <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
+                <div class="all-bets" id="terror-entries">
+                    
                 </div>
             </div>
             

@@ -66,10 +66,11 @@ function runto(id) {
     var numberOffset = Math.floor(Math.random() * (numberWidth - -numberWidth + 1) + -numberWidth)
     var gotoWidth = -repeats - (numberWidth * id) - numberWidth / 2 + $("#wheel").width() / 2 + numberOffset / 2
     if (id == -1) {
+        
         $("#wheel").animate({ 'background-position-x': -(numberWidth * 14) - numberWidth / 2 + $("#wheel").width() / 2 + 'px' }, 1000, "swing")
         return;
     }
-    
+    disableButs();
     //$("#wheel").css('background-position-x', gotoWidth + "px")
     $("#wheel").animate({ 'background-position-x': gotoWidth + 'px' }, 10000, "swing", function () {
         console.log("Finished")
@@ -77,12 +78,34 @@ function runto(id) {
             $("#wheel-overlay-dark").fadeIn(500);
             pushCoin(id);
             last100(id);
+            displayButs();
             $("#wheel").animate({ 'background-position-x': -repeats - (numberWidth * 14) - numberWidth / 2 + $("#wheel").width() / 2 + 'px' }, 1000, "swing", function () {
                 $("#wheel").css('background-position-x', -(numberWidth * 14) - numberWidth / 2 + $("#wheel").width() / 2 + 'px')
             })
         }, 2000)
     });
 }
+
+function displayButs(){
+    document.getElementById('ct-bet').disabled = false;
+    document.getElementById('jack-bet').disabled = false;
+    document.getElementById('t-bet').disabled = false;
+    var bets = document.getElementsByClassName("bets-style");
+    for (var i = 0; i < bets.length; i++) {
+        bets[i].style.opacity = 1;
+    }
+}
+
+function disableButs() {
+    document.getElementById('ct-bet').disabled = true;
+    document.getElementById('jack-bet').disabled = true;
+    document.getElementById('t-bet').disabled = true;
+    var bets=document.getElementsByClassName("bets-style");
+    for (var i = 0; i < bets.length; i++) {
+        bets[i].style.opacity = 0.2;
+    }
+}
+
 
 function amount(amount1) {
     if (amount1 == 'clear') {
@@ -207,5 +230,44 @@ function last100(id) {
     document.getElementById('last100-jackpot').innerHTML = jackpot;
     document.getElementById('last100-counter').innerHTML = counter;
     document.getElementById('last100-terror').innerHTML = terror;
+
+}
+
+
+
+
+
+function betting(coin) {
+    var chosenCoin;
+    if (coin == "ct") {
+        chosenCoin = "counter-entries";
+    } else if (coin == "jackpot") {
+        chosenCoin = "jackpot-entries";
+    } else if(coin == "t"){
+        chosenCoin = "terror-entries";
+    }
+
+    var area = document.getElementById(chosenCoin);
+    var firstDiv = document.createElement("div");
+    firstDiv.className = "person-bet";
+    var img = document.createElement("img");
+    img.src = "Images/counter.svg";
+    firstDiv.appendChild(img);
+    var secondDiv = document.createElement("div");
+    firstDiv.appendChild(secondDiv);
+
+    var firstP = document.createElement("p");
+    firstP.id = "personName";
+    firstP.innerHTML = "bo";
+    secondDiv.appendChild(firstP);
+    var secondP = document.createElement("p");
+    secondP.id = "amount";
+    var val = document.getElementsByName("name");
+    var val1 = val[0].value;
+    
+    secondP.innerHTML = val1;
+    secondDiv.appendChild(secondP);
+
+    area.appendChild(firstDiv);
 
 }

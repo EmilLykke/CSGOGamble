@@ -590,6 +590,7 @@
     </Content>
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Images\coinspng.png" />
+    <Content Include="Images\coinstack.svg" />
     <Content Include="Images\counter.svg" />
     <Content Include="Images\csgohtx.svg" />
     <Content Include="Images\jackpot.svg" />

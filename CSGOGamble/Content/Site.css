@@ -335,6 +335,9 @@ h4{
 h5{
     margin:0;
 }
+p {
+    margin: 0;
+}
 
 .space{
     display:flex;
@@ -344,7 +347,7 @@ h5{
 }
 
 .bets-style {
-    background-color: #131419;
+    background-color: #17181e;
     
     border-radius:0.5rem;
     border-width:0.5px;
@@ -354,12 +357,77 @@ h5{
 }
 
 .total-bets {
+    display:flex;
+    justify-content:space-between;
     width: 100%;
-    border-width: 0.5px;
+    border-bottom-style: solid; 
+    border-width: 1px;
     border-color: black;
-    border-style: solid;
+    
+    padding: 7px 12px;
 }
 
 .all-bets {
     padding: 15px;
+}
+
+.total-bets-col1{
+    display:flex;
+    
+
+}
+
+.total-bets-col2 {
+    display: flex;
+}
+
+#counter-total-entries{
+    
+}
+
+#jackpot-total-entries {
+}
+
+#terror-total-entries {
+
+}
+
+#total-amount-counter{}
+#total-amount-jackpot{}
+#total-amount-terror{}
+
+.margin-right-entries{
+    margin-right:5px;
+}
+
+.total-bets-col2 img {
+    width: 18px;
+    height: auto;
+}
+
+button:disabled,
+button[disabled] {
+    opacity:0.2;
+    background-color: #17181e;
+    pointer-events: none;
+}
+
+#counter-entries {}
+#jackpot-entries {}
+#terror-entries  {}
+
+.person-bet{
+    display:flex;
+    padding:5px;
+}
+.person-bet img {
+    width: 25px;
+    height: auto;
+    margin-right:5px;
+}
+
+.person-bet div{
+    width:100%;
+    display:flex;
+    justify-content:space-between;
 }
