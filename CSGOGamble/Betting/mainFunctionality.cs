@@ -13,12 +13,14 @@ namespace CSGOGamble.Betting
 {
     public class mainFunctionality
     {
-        private CsgoBettingEntities1 databaseManager = new CsgoBettingEntities1();
+        private CsgoBettingEntities1 databaseManager;
+ 
 
         IHubContext connectionManager = GlobalHost.ConnectionManager.GetHubContext<BettingHub>();
 
         private void RunBet()
         {
+            this.databaseManager = new CsgoBettingEntities1();
             rounds round;
             int roundNumber;
             round = this.databaseManager.rounds.SingleOrDefault(r => r.ID == this.databaseManager.rounds.Max(x => x.ID));
@@ -28,7 +30,6 @@ namespace CSGOGamble.Betting
                 string String = round.RoundKey.secret + "-" + round.RoundKey.@public + "-" + round.number;
                 string hashedString = GetStringSha256Hash(String).ToLower();
                 long result = Int64.Parse(hashedString.Substring(0, 8), System.Globalization.NumberStyles.HexNumber) % 15;
-                connectionManager.Clients.All.sendResult(result.ToString());
                 round.complete = 1;
                 round.outcome = (int)result;
                 string resultColor;
@@ -49,7 +50,10 @@ namespace CSGOGamble.Betting
                 List<bets> betsList = bets.ToList();
                 foreach (var bet in betsList)
                 {
-                    if(round.color == "counter" && bet.color == "counter")
+                    users user = this.databaseManager.users.Single(x => x.ID == bet.userID);
+                    Debug.WriteLine("User amount: " + user.amount);
+                    Debug.WriteLine("Bet amount: " + bet.amount);
+                    if (round.color == "counter" && bet.color == "counter")
                     {
                         bet.users.amount += bet.amount * 2;
                     } else if (round.color == "terrorist" && bet.color == "terrorist")
@@ -59,18 +63,37 @@ namespace CSGOGamble.Betting
                     {
                         bet.users.amount += bet.amount * 14;
                     }
-                    connectionManager.Clients.Client(bet.users.amount.ToString()).sendNewAmount(bet.users.amount);
+                    connectionManager.Clients.User(bet.users.ID.ToString()).sendNewAmount(bet.users.amount);
                 }
-            } else
+                List<rounds> last100 = this.databaseManager.rounds.OrderBy(x => x.ID).Take(100).ToList();
+                var counter = 0;
+                var terrorist = 0;
+                var jackpot = 0;
+                foreach (var round100 in last100)
+                {
+                    if(round100.color == "counter")
+                    {
+                        counter++;
+                    } else if(round100.color == "terrorist")
+                    {
+                        terrorist++;
+                    } else
+                    {
+                        jackpot++;
+                    }
+                }
+                connectionManager.Clients.All.sendResult(result.ToString(), counter, terrorist, jackpot);
+            }
+            else
             {
                 roundNumber = 0;
             }
 
-            int? intIdt = databaseManager.roundkeys.Max(u => (int?)u.ID);
+            int? intIdt = this.databaseManager.roundkeys.Max(u => (int?)u.ID);
             roundkeys key;
             if (intIdt != null)
             {
-                key = databaseManager.roundkeys.FirstOrDefault(u => u.ID == intIdt);
+                key = this.databaseManager.roundkeys.FirstOrDefault(u => u.ID == intIdt);
                 if (key != null && key.date.Date == DateTime.UtcNow.Date)
                 {
                 }
@@ -88,14 +111,13 @@ namespace CSGOGamble.Betting
             DateTime nextRoundTime = DateTime.UtcNow.AddSeconds(40);
             rounds nextRound = this.databaseManager.rounds.Add(new rounds { complete = 0, keyID = key.ID, number = roundNumber+1, runtime = nextRoundTime, color = null});
             this.databaseManager.SaveChanges();
+            this.databaseManager.Dispose();
             connectionManager.Clients.All.sendNext(nextRoundTime);
             Task.Run(() => { this.WaitBet(nextRoundTime); });
         }
 
         private void WaitBet(DateTime runtime)
         {
-
-            Debug.WriteLine(DateTime.Compare(DateTime.UtcNow, runtime));
             while (DateTime.Compare(DateTime.UtcNow, runtime) <= 0)
             {
 

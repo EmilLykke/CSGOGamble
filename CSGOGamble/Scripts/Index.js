@@ -2,18 +2,18 @@
 
 var inputFelt = document.getElementsByName('name');
 var coins = [];
-var last_100 = [];
+var last_100 = {counter: 0, terrorist: 0, jackpot: 0}
+var winRound = {update: false, amount: 0};
 
 $(function () {
     runto(-1);
     CountDownTimer(new Date($("#onLoadRoundDate").data("date")));
     var chat = $.connection.bettingHub;
     chat.client.sendNext = function (time, number) {
-        console.log(time)
-        console.log(number)
         CountDownTimer(new Date(time))
     };
-    chat.client.sendResult = function (result) {
+    chat.client.sendResult = function (result, counter, terrorist, jackpot) {
+        last_100 = { counter: counter, terrorist: terrorist, jackpot: jackpot}
         $("#wheel-overlay-dark").fadeOut(500);
         var number = parseInt(result, 10)
         if (number == 0) {
@@ -27,7 +27,8 @@ $(function () {
     }
 
     chat.client.sendNewAmount = function (amount) {
-
+        winRound.update = true;
+        winRound.amount = amount;
     }
 });
 
@@ -38,10 +39,8 @@ function bet(color) {
     if (parseFloat(amount) > parseFloat($("#balance").text())) {
         return;
     }
-    console.log(color);
-    console.log(amount);
+
     $.post('https://localhost:44344//Api/Bet', { amountString: amount, color: color }, function (data1) {
-        console.log(data1)
         if (!data1.eror) {
             $("#balance").text((data1.newAmount).toFixed(2))
         } else {
@@ -75,12 +74,7 @@ function runto(id) {
     var backgroundHeight = $("#wheel").height();
     var backgroundWidth = backgroundHeight * 15
     var numberWidth = backgroundWidth / 15;
-    var repeats;
-    if (id == 0) {
-        repeats = 0;
-    } else {
-        repeats = backgroundWidth * Math.floor(Math.random() * (10 - 7 + 1) + 7)
-    }
+    var repeats = backgroundWidth * Math.floor(Math.random() * (10 - 7 + 1) + 7)
     var numberOffset = Math.floor(Math.random() * (numberWidth - -numberWidth + 1) + -numberWidth)
     var gotoWidth = -repeats - (numberWidth * id) - numberWidth / 2 + $("#wheel").width() / 2 + numberOffset / 2
     if (id == -1) {
@@ -91,12 +85,15 @@ function runto(id) {
     disableButs();
     //$("#wheel").css('background-position-x', gotoWidth + "px")
     $("#wheel").animate({ 'background-position-x': gotoWidth + 'px' }, 10000, "swing", function () {
-        console.log("Finished")
         setTimeout(function () {
             $("#wheel-overlay-dark").fadeIn(500);
             pushCoin(id);
-            last100(id);
+            last100();
             displayButs();
+            if (winRound.update) {
+                $("#balance").text((winRound.amount).toFixed(2))
+                winRound.update = false;
+            }
             $("#wheel").animate({ 'background-position-x': -repeats - (numberWidth * 14) - numberWidth / 2 + $("#wheel").width() / 2 + 'px' }, 1000, "swing", function () {
                 $("#wheel").css('background-position-x', -(numberWidth * 14) - numberWidth / 2 + $("#wheel").width() / 2 + 'px')
             })
@@ -175,7 +172,6 @@ for (var i = 0; i < 10; i++) {
 
 
 function pushCoin(id) {
-    //console.log(coins.length);
     if (coins.length > 9) {
         coins.shift();
         coins.push(id);
@@ -210,43 +206,10 @@ var counter = 0;
 var terror = 0;
 var jackpot = 0;
 
-function last100(id) {
-    //console.log(last_100.length);
-    if (last_100.length > 99) {
-        last_100.shift();
-        last_100.push(id);
-    } else {
-        last_100.push(id);
-    }
-    var num1 = 0;
-    var num2 = 0;
-    var num3 = 0;
-
-    for (var i = 0; i <= last_100.length - 1; i++) {
-        
-        if (last_100[i] == 0) {
-            num1++;
-            
-
-        } else if (last_100[i] % 2 == 0) {
-            num2++;
-            
-
-        } else {
-            num3++;
-            
-        }
-
-    }
-
-    jackpot = num1;
-    counter = num2;
-    terror = num3;
-
-    document.getElementById('last100-jackpot').innerHTML = jackpot;
-    document.getElementById('last100-counter').innerHTML = counter;
-    document.getElementById('last100-terror').innerHTML = terror;
-
+function last100() {
+    document.getElementById('last100-jackpot').innerHTML = last_100.jackpot;
+    document.getElementById('last100-counter').innerHTML = last_100.counter;
+    document.getElementById('last100-terror').innerHTML = last_100.terrorist;
 }
 
 

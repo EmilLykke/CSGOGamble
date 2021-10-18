@@ -15,8 +15,26 @@ namespace CSGOGamble.Controllers
         {
             rounds round = this.databaseManager.rounds.SingleOrDefault(r => r.ID == this.databaseManager.rounds.Max(x => x.ID));
             betModel bets = new betModel(30, 10.0, new List<bet> {new bet("aske", 10.0, "dice"), new bet("aske", 10.0, "dice")});
+            List<rounds> last100 = this.databaseManager.rounds.OrderBy(x => x.ID).Take(100).ToList();
+            var counter = 0;
+            var terrorist = 0;
+            var jackpot = 0;
+            foreach (var round100 in last100)
+            {
+                if (round100.color == "counter")
+                {
+                    counter++;
+                }
+                else if (round100.color == "terrorist")
+                {
+                    terrorist++;
+                }
+                else
+                {
+                    jackpot++;
+                }
+            }
             IndexModel model = new IndexModel(null, double.NaN, bets, round?.runtime);
-
             if (Request.IsAuthenticated)
             {
                 string id = User.Identity.Name;

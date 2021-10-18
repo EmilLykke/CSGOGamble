@@ -516,6 +516,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Start\CustomUserIdProvider.cs" />
     <Compile Include="bets.cs">
       <DependentUpon>DataBase.tt</DependentUpon>
     </Compile>
@@ -551,6 +552,7 @@
     <Compile Include="Models\betModel.cs" />
     <Compile Include="Models\BetResult.cs" />
     <Compile Include="Models\IndexModel.cs" />
+    <Compile Include="Models\Last100Model.cs" />
     <Compile Include="Models\PostError.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="roundkeys.cs">

@@ -43,7 +43,7 @@ namespace CSGOGamble.Controllers
                                 {
                                     this.databaseManager.bets.Add(new bets { amount = amount, roundID = round.ID, color = color, userID = user.ID });
                                     user.amount = user.amount - amount;
-                                    databaseManager.SaveChanges();
+                                    this.databaseManager.SaveChanges();
                                     connectionManager.Clients.All.sendNewBet(user.username, amount, color);
                                     return Json(new BetResult(user.amount));
                                 }
