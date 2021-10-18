@@ -10,8 +10,8 @@ namespace CSGOGamble.Models
         public string Username { get; set; }
         public double Amount { get; set; }
         public betModel Bets { get; set; }
-        public DateTime NextRound { get; set; }
-        public IndexModel(string Username, double Amount, betModel Bets, DateTime NextRound)
+        public DateTime? NextRound { get; set; }
+        public IndexModel(string Username, double Amount, betModel Bets, DateTime? NextRound)
         {
             this.Username = Username;
             this.Amount = Amount;

@@ -15,7 +15,7 @@ namespace CSGOGamble.Controllers
         {
             rounds round = this.databaseManager.rounds.SingleOrDefault(r => r.ID == this.databaseManager.rounds.Max(x => x.ID));
             betModel bets = new betModel(30, 10.0, new List<bet> {new bet("aske", 10.0, "dice"), new bet("aske", 10.0, "dice")});
-            IndexModel model = new IndexModel(null, double.NaN, bets, round.runtime);
+            IndexModel model = new IndexModel(null, double.NaN, bets, round?.runtime);
 
             if (Request.IsAuthenticated)
             {

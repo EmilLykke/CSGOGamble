@@ -20,31 +20,50 @@ namespace CSGOGamble.Betting
         private void RunBet()
         {
             rounds round;
+            int roundNumber;
             round = this.databaseManager.rounds.SingleOrDefault(r => r.ID == this.databaseManager.rounds.Max(x => x.ID));
             if (round != null)
             {
+                roundNumber = round.number;
                 string String = round.RoundKey.secret + "-" + round.RoundKey.@public + "-" + round.number;
                 string hashedString = GetStringSha256Hash(String).ToLower();
                 long result = Int64.Parse(hashedString.Substring(0, 8), System.Globalization.NumberStyles.HexNumber) % 15;
                 connectionManager.Clients.All.sendResult(result.ToString());
                 round.complete = 1;
                 round.outcome = (int)result;
+                string resultColor;
+                if (new List<int> { 1, 3, 5, 7, 9, 11, 13 }.Contains((int)result))
+                {
+                    resultColor = "counter";
+                }
+                else if (new List<int> { 2, 4, 6, 8, 10, 12, 14 }.Contains((int)result))
+                {
+                    resultColor = "terrorist";
+                }
+                else 
+                {
+                    resultColor = "jackpot";
+                }
+                round.color = resultColor;
                 IQueryable<bets> bets = this.databaseManager.bets.Where(x => x.roundID == round.ID);
                 List<bets> betsList = bets.ToList();
                 foreach (var bet in betsList)
                 {
-                    string resultColor;
-                    if(new List<int> {1, 3, 5, 7, 9, 11, 13}.Contains((int)result) && bet.color == "counter")
+                    if(round.color == "counter" && bet.color == "counter")
                     {
-                        resultColor = "counter";
-                    } else if (new List<int> {2, 4, 6, 8, 10, 12, 14}.Contains((int)result) && bet.color == "terrorist")
+                        bet.users.amount += bet.amount * 2;
+                    } else if (round.color == "terrorist" && bet.color == "terrorist")
                     {
-                        resultColor = "terrorist";
-                    } else if ((int)result == 0 && bet.color == "jackpot")
+                        bet.users.amount += bet.amount * 2;
+                    } else if (round.color == "jackpot" && bet.color == "jackpot")
                     {
-                        resultColor = "jackpot";
+                        bet.users.amount += bet.amount * 14;
                     }
+                    connectionManager.Clients.Client(bet.users.amount.ToString()).sendNewAmount(bet.users.amount);
                 }
+            } else
+            {
+                roundNumber = 0;
             }
 
             int? intIdt = databaseManager.roundkeys.Max(u => (int?)u.ID);
@@ -58,14 +77,16 @@ namespace CSGOGamble.Betting
                 else
                 {
                     key = this.databaseManager.roundkeys.Add(new roundkeys { secret = GetRandomString(64), @public = GetRandomString(12) });
+                    roundNumber = 0;
                 }
             }
             else
             {
                 key = this.databaseManager.roundkeys.Add(new roundkeys { secret = GetRandomString(64), @public = GetRandomString(12) });
+                roundNumber = 0;
             }
             DateTime nextRoundTime = DateTime.UtcNow.AddSeconds(40);
-            rounds nextRound = this.databaseManager.rounds.Add(new rounds { complete = 0, keyID = key.ID, number = round.number+1, runtime = nextRoundTime});
+            rounds nextRound = this.databaseManager.rounds.Add(new rounds { complete = 0, keyID = key.ID, number = roundNumber+1, runtime = nextRoundTime, color = null});
             this.databaseManager.SaveChanges();
             connectionManager.Clients.All.sendNext(nextRoundTime);
             Task.Run(() => { this.WaitBet(nextRoundTime); });

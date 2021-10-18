@@ -26,6 +26,7 @@ namespace CSGOGamble
         public System.DateTime runtime { get; set; }
         public int keyID { get; set; }
         public sbyte complete { get; set; }
+        public string color { get; set; }
     
         public virtual roundkeys RoundKey { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

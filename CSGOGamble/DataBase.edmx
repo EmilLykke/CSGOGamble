@@ -34,6 +34,7 @@
           <Property Name="runtime" Type="datetime" Precision="0" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="keyID" Type="int" Nullable="false" />
           <Property Name="complete" Type="tinyint" Nullable="false" />
+          <Property Name="color" Type="varchar" MaxLength="20" />
         </EntityType>
         <EntityType Name="users">
           <Key>
@@ -63,8 +64,8 @@
           <Property Name="roundID" Type="Int32" Nullable="false" />
           <Property Name="userID" Type="Int32" Nullable="false" />
           <Property Name="color" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="users" Relationship="CsgoBettingModel.betsusers" FromRole="bets" ToRole="users" />
           <NavigationProperty Name="rounds" Relationship="CsgoBettingModel.betsrounds" FromRole="bets" ToRole="rounds" />
-          <Property Name="roundsID" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityType Name="roundkeys">
           <Key>
@@ -88,6 +89,7 @@
           <Property Name="complete" Type="SByte" Nullable="false" />
           <NavigationProperty Name="RoundKey" Relationship="CsgoBettingModel.roundkeysrounds" FromRole="rounds" ToRole="roundkeys" />
           <NavigationProperty Name="bets" Relationship="CsgoBettingModel.betsrounds" FromRole="rounds" ToRole="bets" />
+          <Property Name="color" Type="String" Nullable="true" MaxLength="20" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="users">
           <Key>
@@ -97,6 +99,7 @@
           <Property Name="username" Type="String" MaxLength="256" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="steam" Type="String" MaxLength="256" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="amount" Type="Double" Nullable="false" />
+          <NavigationProperty Name="bets" Relationship="CsgoBettingModel.betsusers" FromRole="users" ToRole="bets" />
         </EntityType>
         <EntityContainer Name="CsgoBettingEntities1" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="bets" EntityType="Self.bets" />
@@ -106,6 +109,10 @@
           <AssociationSet Name="roundkeysrounds" Association="CsgoBettingModel.roundkeysrounds">
             <End Role="rounds" EntitySet="rounds" />
             <End Role="roundkeys" EntitySet="roundkeys" />
+          </AssociationSet>
+          <AssociationSet Name="betsusers" Association="CsgoBettingModel.betsusers">
+            <End Role="bets" EntitySet="bets" />
+            <End Role="users" EntitySet="users" />
           </AssociationSet>
           <AssociationSet Name="betsrounds" Association="CsgoBettingModel.betsrounds">
             <End Role="bets" EntitySet="bets" />
@@ -124,6 +131,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="betsusers">
+          <End Type="CsgoBettingModel.bets" Role="bets" Multiplicity="*" />
+          <End Type="CsgoBettingModel.users" Role="users" Multiplicity="1" />
+          <ReferentialConstraint>
+            <Principal Role="users">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="bets">
+              <PropertyRef Name="userID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="betsrounds">
           <End Type="CsgoBettingModel.bets" Role="bets" Multiplicity="*" />
           <End Type="CsgoBettingModel.rounds" Role="rounds" Multiplicity="1" />
@@ -132,7 +151,7 @@
               <PropertyRef Name="ID" />
             </Principal>
             <Dependent Role="bets">
-              <PropertyRef Name="roundsID" />
+              <PropertyRef Name="roundID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -145,7 +164,7 @@
           <EntitySetMapping Name="bets">
             <EntityTypeMapping TypeName="CsgoBettingModel.bets">
               <MappingFragment StoreEntitySet="bets">
-                <ScalarProperty Name="roundsID" ColumnName="roundID" />
+                <ScalarProperty Name="roundID" ColumnName="roundID" />
                 <ScalarProperty Name="color" ColumnName="color" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="amount" ColumnName="amount" />
@@ -166,6 +185,7 @@
           <EntitySetMapping Name="rounds">
             <EntityTypeMapping TypeName="CsgoBettingModel.rounds">
               <MappingFragment StoreEntitySet="rounds">
+                <ScalarProperty Name="color" ColumnName="color" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="number" ColumnName="number" />
                 <ScalarProperty Name="outcome" ColumnName="outcome" />

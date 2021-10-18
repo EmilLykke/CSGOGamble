@@ -25,6 +25,10 @@ $(function () {
     chat.client.sendNewBet = function (username, amount, color) {
         addNewBet(color, amount, username);
     }
+
+    chat.client.sendNewAmount = function (amount) {
+
+    }
 });
 
 $.connection.hub.start().done(function () {}).fail(function (error) {alert("Failed to connect!");});
@@ -46,6 +50,9 @@ function bet(color) {
 }
 
 function CountDownTimer(dt) {
+    if (dt == NaN) {
+        return;
+    }
     var end = new Date(dt);
 
     var timer;

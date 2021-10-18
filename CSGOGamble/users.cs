@@ -14,9 +14,18 @@ namespace CSGOGamble
     
     public partial class users
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public users()
+        {
+            this.bets = new HashSet<bets>();
+        }
+    
         public int ID { get; set; }
         public string username { get; set; }
         public string steam { get; set; }
         public double amount { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<bets> bets { get; set; }
     }
 }

@@ -41,7 +41,7 @@ namespace CSGOGamble.Controllers
                             {
                                 if (color == "counter" || color == "terrorist" || color == "jackpot")
                                 {
-                                    this.databaseManager.bets.Add(new bets { amount = amount, roundID = round.ID, color = color });
+                                    this.databaseManager.bets.Add(new bets { amount = amount, roundID = round.ID, color = color, userID = user.ID });
                                     user.amount = user.amount - amount;
                                     databaseManager.SaveChanges();
                                     connectionManager.Clients.All.sendNewBet(user.username, amount, color);
