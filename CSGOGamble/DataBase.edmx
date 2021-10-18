@@ -63,6 +63,8 @@
           <Property Name="roundID" Type="Int32" Nullable="false" />
           <Property Name="userID" Type="Int32" Nullable="false" />
           <Property Name="color" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="rounds" Relationship="CsgoBettingModel.betsrounds" FromRole="bets" ToRole="rounds" />
+          <Property Name="roundsID" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityType Name="roundkeys">
           <Key>
@@ -85,6 +87,7 @@
           <Property Name="keyID" Type="Int32" Nullable="false" />
           <Property Name="complete" Type="SByte" Nullable="false" />
           <NavigationProperty Name="RoundKey" Relationship="CsgoBettingModel.roundkeysrounds" FromRole="rounds" ToRole="roundkeys" />
+          <NavigationProperty Name="bets" Relationship="CsgoBettingModel.betsrounds" FromRole="rounds" ToRole="bets" />
         </EntityType>
         <EntityType Name="users">
           <Key>
@@ -104,6 +107,10 @@
             <End Role="rounds" EntitySet="rounds" />
             <End Role="roundkeys" EntitySet="roundkeys" />
           </AssociationSet>
+          <AssociationSet Name="betsrounds" Association="CsgoBettingModel.betsrounds">
+            <End Role="bets" EntitySet="bets" />
+            <End Role="rounds" EntitySet="rounds" />
+          </AssociationSet>
         </EntityContainer>
         <Association Name="roundkeysrounds">
           <End Type="CsgoBettingModel.rounds" Role="rounds" Multiplicity="*" />
@@ -117,6 +124,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="betsrounds">
+          <End Type="CsgoBettingModel.bets" Role="bets" Multiplicity="*" />
+          <End Type="CsgoBettingModel.rounds" Role="rounds" Multiplicity="1" />
+          <ReferentialConstraint>
+            <Principal Role="rounds">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="bets">
+              <PropertyRef Name="roundsID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -126,10 +145,10 @@
           <EntitySetMapping Name="bets">
             <EntityTypeMapping TypeName="CsgoBettingModel.bets">
               <MappingFragment StoreEntitySet="bets">
+                <ScalarProperty Name="roundsID" ColumnName="roundID" />
                 <ScalarProperty Name="color" ColumnName="color" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="amount" ColumnName="amount" />
-                <ScalarProperty Name="roundID" ColumnName="roundID" />
                 <ScalarProperty Name="userID" ColumnName="userID" />
               </MappingFragment>
             </EntityTypeMapping>

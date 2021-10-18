@@ -10,6 +10,7 @@
         <EntityTypeShape EntityType="CsgoBettingModel.rounds" Width="1.5" PointX="0.75" PointY="3.75" IsExpanded="true" />
         <EntityTypeShape EntityType="CsgoBettingModel.users" Width="1.5" PointX="3.75" PointY="0.625" IsExpanded="true" />
         <AssociationConnector Association="CsgoBettingModel.roundkeysrounds" />
+        <AssociationConnector Association="CsgoBettingModel.betsrounds" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

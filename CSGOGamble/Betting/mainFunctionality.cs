@@ -29,6 +29,22 @@ namespace CSGOGamble.Betting
                 connectionManager.Clients.All.sendResult(result.ToString());
                 round.complete = 1;
                 round.outcome = (int)result;
+                IQueryable<bets> bets = this.databaseManager.bets.Where(x => x.roundID == round.ID);
+                List<bets> betsList = bets.ToList();
+                foreach (var bet in betsList)
+                {
+                    string resultColor;
+                    if(new List<int> {1, 3, 5, 7, 9, 11, 13}.Contains((int)result) && bet.color == "counter")
+                    {
+                        resultColor = "counter";
+                    } else if (new List<int> {2, 4, 6, 8, 10, 12, 14}.Contains((int)result) && bet.color == "terrorist")
+                    {
+                        resultColor = "terrorist";
+                    } else if ((int)result == 0 && bet.color == "jackpot")
+                    {
+                        resultColor = "jackpot";
+                    }
+                }
             }
 
             int? intIdt = databaseManager.roundkeys.Max(u => (int?)u.ID);

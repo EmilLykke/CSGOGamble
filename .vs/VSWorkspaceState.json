@@ -1,8 +1,9 @@
 {
   "ExpandedNodes": [
     "",
-    "\\CSGOGamble"
+    "\\CSGOGamble",
+    "\\CSGOGamble\\Controllers"
   ],
-  "SelectedNode": "\\CSGOGamble\\CSGOGamble.sln",
+  "SelectedNode": "\\CSGOGamble\\DataBase.edmx",
   "PreviewInSolutionExplorer": false
 }

@@ -14,6 +14,12 @@ namespace CSGOGamble
     
     public partial class rounds
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public rounds()
+        {
+            this.bets = new HashSet<bets>();
+        }
+    
         public int ID { get; set; }
         public int number { get; set; }
         public Nullable<int> outcome { get; set; }
@@ -22,5 +28,7 @@ namespace CSGOGamble
         public sbyte complete { get; set; }
     
         public virtual roundkeys RoundKey { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<bets> bets { get; set; }
     }
 }
