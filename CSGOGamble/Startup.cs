@@ -17,8 +17,7 @@ namespace CSGOGamble
             GlobalHost.DependencyResolver.Register(typeof(IUserIdProvider), () => idProvider);
             ConfigureAuth(app);
             app.MapSignalR();
-            mainFunctionality bettingObject = new mainFunctionality();
-            Task.Run(() => { bettingObject.Start(); });
+            mainFunctionality.Start();
         }
     }
 }

@@ -84,7 +84,7 @@
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="number" Type="Int32" Nullable="false" />
           <Property Name="outcome" Type="Int32" />
-          <Property Name="runtime" Type="DateTime" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="runtime" Type="DateTime" annotation:StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="keyID" Type="Int32" Nullable="false" />
           <Property Name="complete" Type="SByte" Nullable="false" />
           <NavigationProperty Name="RoundKey" Relationship="CsgoBettingModel.roundkeysrounds" FromRole="rounds" ToRole="roundkeys" />

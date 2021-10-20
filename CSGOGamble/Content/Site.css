@@ -19,6 +19,18 @@
     align-items: center;
 }
 
+.left {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.right {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
 #wheel-overlay {
     padding: 25px 0px 25px 0px;
     position: relative;
@@ -117,6 +129,7 @@
     border-radius: 15px;
     background-color: #2d2d39;
     border-color: #4a4e5c;
+    width: 90%;
 }
 
 #betting-amount table td{
@@ -226,59 +239,25 @@
     
 }
 
-.last-margin {
+.last-margin-terrorist {
     width: 20px;
     height: 20px;
     margin: 0px 3px;
-    
+    background-image: url("../Images/terrorist.svg");
 }
 
-#last100-counter{
-
+.last-margin-jackpot {
+    width: 20px;
+    height: 20px;
+    margin: 0px 3px;
+    background-image: url("../Images/jackpot.svg");
 }
 
-#last100-terror{
-
-}
-#last100-jackpot{
-
-}
-
-#last10-1 {
-}
-
-#last10-2 {
-    
-}
-
-#last10-3 {
-}
-
-#last10-4{
-}
-
-#last10-5{
-
-}
-
-#last10-6{
-
-}
-
-#last10-7{
-   
-}
-
-#last10-8{
-
-}
-
-#last10-9{
-
-}
-
-#last10-10{
-
+.last-margin-counter {
+    width: 20px;
+    height: 20px;
+    margin: 0px 3px;
+    background-image: url("../Images/counter.svg");
 }
 
 #ct-bet{

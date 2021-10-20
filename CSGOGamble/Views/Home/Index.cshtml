@@ -16,53 +16,46 @@
         </div>
         <div class="center" id="last100-div">
             <div id="last100">
-                <div class="column1 center">
+                <div class="column1 left">
                     PREVIOUS ROLLS
                 </div>
-                <div class="column2 center">
-                    <div id="last10">
-                        <div class="column1 last-margin" id="last10-1">
-                            
-                        </div>
-                        <div class="column2 last-margin" id="last10-2">
-
-                        </div>
-                        <div class="column3 last-margin" id="last10-3">
-                        </div>
-                        <div class="column4 last-margin" id="last10-4">
-                        </div>
-                        <div class="column5 last-margin" id="last10-5">
-                        </div>
-                        <div class="column6 last-margin" id="last10-6">
-                        </div>
-                        <div class="column7 last-margin" id="last10-7">
-                        </div>
-                        <div class="column8 last-margin" id="last10-8">
-                        </div>
-                        <div class="column9 last-margin" id="last10-9">
-                        </div>
-                        <div class="column10 last-margin" id="last10-10">
-                        </div>
-                    </div>
+                <div class="column2 left" id="last10-col">
+                    @{
+                        foreach (var round in Model.Last10)
+                        {
+                            if (round.color == "terrorist")
+                            {
+                                <div class="last-margin-terrorist"></div>
+                            }
+                            else if (round.color == "counter")
+                            {
+                                <div class="last-margin-counter"></div>
+                            }
+                            else
+                            {
+                                <div class="last-margin-jackpot"></div>
+                            }
+                        }
+                    }
                 </div>
-                <div class="column3 center" id="last100-col">
+                <div class="column3 right" id="last100-col">
                     <div class="column1 count center" >
                         LAST 100
                     </div>
                     <div class="column2 count center" >
                         <img src="~/Images/counter.svg" />
-                        <div class="center" id="last100-counter">12</div>
+                        <div class="center" id="last100-counter">@Model.Last100.counter</div>
 
                     </div>
                     <div class="column3 count center">
                         <img src="~/Images/terrorist.svg" />
-                        <div class="center" id="last100-terror">12</div>
+                        <div class="center" id="last100-terror">@Model.Last100.terrorist</div>
 
                     </div>
                     <div class="column4 count center">
                         
                         <img src="~/Images/jackpot.svg" />
-                        <div class="center" id="last100-jackpot">12</div>
+                        <div class="center" id="last100-jackpot">@Model.Last100.jackpot</div>
                     </div>
                 </div>
             </div>
@@ -153,7 +146,7 @@
 
                         </div>
                         <div>
-                            <h5>WIN 2x</h5>
+                            <h5>WIN 14x</h5>
                         </div>
                     </div>
 

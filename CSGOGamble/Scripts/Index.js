@@ -7,7 +7,6 @@ var winRound = {update: false, amount: 0};
 
 $(function () {
     runto(-1);
-    CountDownTimer(new Date($("#onLoadRoundDate").data("date")));
     var chat = $.connection.bettingHub;
     chat.client.sendNext = function (time, number) {
         CountDownTimer(new Date(time))
@@ -30,9 +29,12 @@ $(function () {
         winRound.update = true;
         winRound.amount = amount;
     }
+
+    $.connection.hub.start().done(function () {
+        chat.server.getNextRound();
+    }).fail(function (error) { alert("Failed to connect!"); });
 });
 
-$.connection.hub.start().done(function () {}).fail(function (error) {alert("Failed to connect!");});
 
 function bet(color) {
     var amount = $('input[name=name]').val()
@@ -70,7 +72,7 @@ function CountDownTimer(dt) {
 }
 
 function runto(id) {
-
+    clearBets();
     var backgroundHeight = $("#wheel").height();
     var backgroundWidth = backgroundHeight * 15
     var numberWidth = backgroundWidth / 15;
@@ -152,59 +154,19 @@ function cal(amount1) {
     inputFelt[0].value = val.toFixed(2);
 }
 
-// 0 coin
-// 1 counter 
-var last10_1 = document.getElementById('last10-1');
-var last10_2 = document.getElementById('last10-2');
-var last10_3 = document.getElementById('last10-3');
-var last10_4 = document.getElementById('last10-4');
-var last10_5 = document.getElementById('last10-5');
-var last10_6 = document.getElementById('last10-6');
-var last10_7 = document.getElementById('last10-7');
-var last10_8 = document.getElementById('last10-8');
-var last10_9 = document.getElementById('last10-9');
-var last10_10 = document.getElementById('last10-10');
-
-
-for (var i = 0; i < 10; i++) {
-    pushCoin(i);
-}
-
 
 function pushCoin(id) {
-    if (coins.length > 9) {
-        coins.shift();
-        coins.push(id);
+    if ($('#last10-col').children().length > 9) {
+        $('#last10-col').children()[0].remove()
+    }
+    if (id == 14) {
+        $('#last10-col').append('<div class="last-margin-jackpot"></div>')
+    } else if (id % 2 == 0) {
+        $('#last10-col').append('<div class="last-margin-counter"></div>')
     } else {
-        coins.push(id);
-    }
-    
-    var num =0;
-    for (var i = 0; i <= coins.length-1; i++) {
-        num = i + 1;
-        if (coins[i] == 0) {
-            document.getElementById('last10-' + num).style.backgroundImage = "url('../Images/jackpot.svg')";
-        } else if (coins[i] % 2 == 0) {
-            
-            document.getElementById('last10-' + num).style.backgroundImage = "url('../Images/counter.svg')";
-            
-        } else {
-            
-            document.getElementById('last10-' + num).style.backgroundImage = "url('../Images/terrorist.svg')";
-        }
-        
-        
-    }
-    
+        $('#last10-col').append('<div class="last-margin-terrorist"></div>')
+    } 
 }
-
-for (var i = 0; i < 100; i++) {
-    last100(i);
-}
-
-var counter = 0;
-var terror = 0;
-var jackpot = 0;
 
 function last100() {
     document.getElementById('last100-jackpot').innerHTML = last_100.jackpot;
@@ -248,5 +210,35 @@ function addNewBet(color, amount, username) {
     secondDiv.appendChild(secondP);
 
     area.appendChild(firstDiv);
+    jackpottotal = 0;
+    countertotal = 0;
+    terroristtotal = 0;
+    $("#jackpot-entries").children().each(function ( ) {
+        jackpottotal += parseFloat($(this).find("#amount").html())
+    })
+    $("#terror-entries").children().each(function () {
+        terroristtotal += parseFloat($(this).find("#amount").html())
+    })
+    $("#counter-entries").children().each(function () {
+        countertotal += parseFloat($(this).find("#amount").html())
+    })
+    $("#counter-total-entries").text($("#counter-entries").children().length)
+    $("#total-amount-counter").text(countertotal)
 
+    $("#jackpot-total-entries").text($("#jackpot-entries").children().length)
+    $("#total-amount-jackpot").text(jackpottotal)
+
+    $("#total-amount-terror").text(terroristtotal)
+    $("#terror-total-entries").text($("#terror-entries").children().length)
+}
+
+function clearBets() {
+    $("#counter-total-entries").text(0)
+    $("#total-amount-counter").text(0)
+
+    $("#jackpot-total-entries").text(0)
+    $("#total-amount-jackpot").text(0)
+
+    $("#total-amount-terror").text(0)
+    $("#terror-total-entries").text(0)
 }

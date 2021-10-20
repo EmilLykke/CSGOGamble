@@ -1,4 +1,5 @@
-﻿using CSGOGamble.Models;
+﻿using CSGOGamble.Betting;
+using CSGOGamble.Models;
 using Microsoft.AspNet.SignalR;
 using System;
 using System.Collections.Generic;
@@ -11,10 +12,10 @@ namespace CSGOGamble
 {
     public class BettingHub : Hub
     {
-        public void SendAllBets(string bets)
+        public void getNextRound()
         {
             // Call the broadcastMessage method to update clients.
-            Clients.All.sendBets(bets);
+            Clients.Caller.sendNext(mainFunctionality.NextRoundTime);
         }
     }
 }

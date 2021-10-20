@@ -13,12 +13,12 @@ namespace CSGOGamble.Controllers
 
         public ActionResult Index()
         {
-            rounds round = this.databaseManager.rounds.SingleOrDefault(r => r.ID == this.databaseManager.rounds.Max(x => x.ID));
             betModel bets = new betModel(30, 10.0, new List<bet> {new bet("aske", 10.0, "dice"), new bet("aske", 10.0, "dice")});
-            List<rounds> last100 = this.databaseManager.rounds.OrderBy(x => x.ID).Take(100).ToList();
-            var counter = 0;
-            var terrorist = 0;
-            var jackpot = 0;
+            List<rounds> last100 = this.databaseManager.rounds.Where(x => x.complete == 1).OrderByDescending(x => x.ID).Take(100).ToList();
+            List<rounds> last10 = last100.OrderByDescending(x => x.ID).Take(10).OrderBy(x => x.ID).ToList();
+            int counter = 0;
+            int terrorist = 0;
+            int jackpot = 0;
             foreach (var round100 in last100)
             {
                 if (round100.color == "counter")
@@ -34,7 +34,7 @@ namespace CSGOGamble.Controllers
                     jackpot++;
                 }
             }
-            IndexModel model = new IndexModel(null, double.NaN, bets, round?.runtime);
+            IndexModel model = new IndexModel(null, double.NaN, last10, bets, counter, terrorist, jackpot);
             if (Request.IsAuthenticated)
             {
                 string id = User.Identity.Name;
