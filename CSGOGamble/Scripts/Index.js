@@ -42,8 +42,9 @@ function bet(color) {
         return;
     }
 
-    $.post('https://localhost:44344//Api/Bet', { amountString: amount, color: color }, function (data1) {
-        if (!data1.eror) {
+    $.post('/Api/Bet', { amountString: amount, color: color }, function (data1) {
+        if (!data1.error) {
+            console.log(data1)
             $("#balance").text((data1.newAmount).toFixed(2))
         } else {
         }
@@ -72,7 +73,6 @@ function CountDownTimer(dt) {
 }
 
 function runto(id) {
-    clearBets();
     var backgroundHeight = $("#wheel").height();
     var backgroundWidth = backgroundHeight * 15
     var numberWidth = backgroundWidth / 15;
@@ -92,6 +92,7 @@ function runto(id) {
             pushCoin(id);
             last100();
             displayButs();
+            clearBets();
             if (winRound.update) {
                 $("#balance").text((winRound.amount).toFixed(2))
                 winRound.update = false;
@@ -241,4 +242,10 @@ function clearBets() {
 
     $("#total-amount-terror").text(0)
     $("#terror-total-entries").text(0)
+
+    $("#jackpot-entries").empty()
+
+    $("#terror-entries").empty()
+
+    $("#counter-entries").empty()
 }
