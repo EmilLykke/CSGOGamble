@@ -9,10 +9,10 @@ namespace CSGOGamble.Models
     {
         public string Username { get; set; }
         public double Amount { get; set; }
-        public betModel Bets { get; set; }
+        public List<bets> Bets { get; set; }
         public Last100Model Last100 { get; set; }
         public List<rounds> Last10 { get; set; }
-        public IndexModel(string Username, double Amount, List<rounds> Last10, betModel Bets, int counter, int terrorist, int jackpot)
+        public IndexModel(string Username, double Amount, List<rounds> Last10, List<bets> Bets, int counter, int terrorist, int jackpot)
         {
             this.Username = Username;
             this.Amount = Amount;

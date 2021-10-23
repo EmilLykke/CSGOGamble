@@ -549,7 +549,6 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModel.cs" />
-    <Compile Include="Models\betModel.cs" />
     <Compile Include="Models\BetResult.cs" />
     <Compile Include="Models\IndexModel.cs" />
     <Compile Include="Models\Last100Model.cs" />

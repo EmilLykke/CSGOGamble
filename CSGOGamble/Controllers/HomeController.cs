@@ -13,7 +13,8 @@ namespace CSGOGamble.Controllers
 
         public ActionResult Index()
         {
-            betModel bets = new betModel(30, 10.0, new List<bet> {new bet("aske", 10.0, "dice"), new bet("aske", 10.0, "dice")});
+            rounds round = databaseManager.rounds.SingleOrDefault(r => r.ID == databaseManager.rounds.Max(z => z.ID));
+            List<bets> bets = databaseManager.bets.Where(x => x.roundID == round.ID).ToList();
             List<rounds> last100 = this.databaseManager.rounds.Where(x => x.complete == 1).OrderByDescending(x => x.ID).Take(100).ToList();
             List<rounds> last10 = last100.OrderByDescending(x => x.ID).Take(10).OrderBy(x => x.ID).ToList();
             int counter = 0;
