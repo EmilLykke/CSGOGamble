@@ -589,6 +589,7 @@
     <Content Include="DataBase.edmx.diagram">
       <DependentUpon>DataBase.edmx</DependentUpon>
     </Content>
+    <None Include="Properties\PublishProfiles\IISProfile.pubxml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Images\coinspng.png" />
     <Content Include="Images\coinstack.svg" />

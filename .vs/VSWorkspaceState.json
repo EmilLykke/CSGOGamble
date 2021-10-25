@@ -2,8 +2,9 @@
   "ExpandedNodes": [
     "",
     "\\CSGOGamble",
-    "\\CSGOGamble\\Controllers"
+    "\\CSGOGamble\\Views",
+    "\\CSGOGamble\\Views\\Home"
   ],
-  "SelectedNode": "\\CSGOGamble\\DataBase.edmx",
+  "SelectedNode": "\\CSGOGamble\\Views\\Home\\Index.cshtml",
   "PreviewInSolutionExplorer": false
 }
