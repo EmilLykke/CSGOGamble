@@ -21,32 +21,26 @@ namespace CSGOGamble.Controllers
 
     
 
-    /// <summary>  
-    /// Account controller class.    
-    /// </summary>  
+    //Denne controller håndtere alle logins. Den håndtere alle kald til /Account
     public class AccountController : Controller
     {
         #region Private Properties    
-        /// <summary>  
-        /// Database Store property.    
-        /// </summary>  
+        
+        //Opret en ny entity af vores database
         private CsgoBettingEntities1 databaseManager = new CsgoBettingEntities1();
+
+        public AccountController() {}
         #endregion
-        #region Default Constructor    
-        /// <summary>  
-        /// Initializes a new instance of the <see cref="AccountController" /> class.    
-        /// </summary>  
-        public AccountController()
-        {
-        }
-        #endregion
+
         #region Login methods    
 
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
+        //Dette actionResult håndtere kaldt til /Account/LoginSteam over post. Den tager to værdier, en provider og returnUrl. Provideren vil altid være steam.
         public ActionResult LoginSteam(string provider, string returnUrl)
         {
+            //Vi prøver at retunere et nyt ChallengeResult som redirecter brugeren til steam med de korrekte informaitoner. Denne redirect er håndteret af et library kaldet OwinProviders
             try
             {
                 return new ChallengeResult(provider, Url.Action("ExternalLoginCallback", "Account", new { returnUrl = returnUrl }));
@@ -58,15 +52,21 @@ namespace CSGOGamble.Controllers
         }
 
         [AllowAnonymous]
+        //Når brugeren bliver sendt tilbage til hjemmesiden fra steam af kommer de til Account/ExternalLoginCallback med get.
         public async Task<ActionResult> ExternalLoginCallback(string returnUrl)
         {
+            //Vi kalder funktionen authenticcationManager.GetExternalLoginInfoAsync. authenticationManager er blot en variable hvor get retunere HttpContext.GetOwinContext().Authentication, som indeholder authenticering af en httprequest
+            //Ved hjælp af funktionen GetExternalLoginInfoAsync får vi den info som steam har sendt med tilbage. Owin, det library vi bruger, sørger for verificering af datatene med steams server
             var loginInfo = await authenticationManager.GetExternalLoginInfoAsync();
+            //Vi tjekker lige om brugeren allerede er logget ind, så sender vi dem bare tilbage til Index
             if(User.Identity.IsAuthenticated)
             {
                 return RedirectToAction("Index", "Home");
-            } else if(loginInfo.ExternalIdentity.IsAuthenticated)
+            } 
+            //Ellers begynder vi at logge dem ind.
+            else if(loginInfo.ExternalIdentity.IsAuthenticated)
             {
-
+                //Vi ser om dataabasen allerede indeholder en bruger med det brugernavn
                 var user = this.databaseManager.users.SingleOrDefault(u => u.username == loginInfo.DefaultUserName && u.steam == loginInfo.Login.ProviderKey);
                 if(user != null)
                 {
@@ -86,32 +86,7 @@ namespace CSGOGamble.Controllers
             }
             return this.RedirectToAction("Login");
         }
-        /// <summary>  
-        /// GET: /Account/Login    
-        /// </summary>  
-        /// <param name="returnUrl">Return URL parameter</param>  
-        /// <returns>Return login view</returns>  
         
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult LogOff()
-        {
-            try
-            {
-                // Setting.    
-                var ctx = Request.GetOwinContext();
-                var authenticationManager = ctx.Authentication;
-                // Sign Out.    
-                authenticationManager.SignOut();
-            }
-            catch (Exception ex)
-            {
-                // Info    
-                throw ex;
-            }
-            // Info.    
-            return this.RedirectToAction("Home", "Index");
-        }
         #endregion
         #region Helpers    
         #region Sign In method.    

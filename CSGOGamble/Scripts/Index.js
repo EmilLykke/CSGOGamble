@@ -1,9 +1,11 @@
 ﻿
-
+// Her bliver inputfeltet hvor man kan skrive sin amount "sat fast" til en variabel so hedder inputFelt
+// det gør at vi kan ændre værdien som står der i ved hjælp af af de forskellige knapper.
 var inputFelt = document.getElementsByName('name');
 var coins = [];
 var last_100 = {counter: 0, terrorist: 0, jackpot: 0}
 var winRound = {update: false, amount: 0};
+
 
 $(function () {
     runto(-1);
@@ -72,7 +74,12 @@ function CountDownTimer(dt) {
     timer = setInterval(showRemaining, 100);
 }
 
+// denne function bliver kaldt hver 40 sekund og er den der sørger for at vores "roulette" ruller
+// id'et som bliver parset er den coins som den skal lande på. Id'et bliver sendt med fra serveren som kører,
+// algoritmen som bestmmer rundens udfald.
 function runto(id) {
+    // de første par linjer her gør det muligt for os at bestemmer hvor på vore roulete vi er. Altså
+    // det gør det muligt for os at rulle til et bestemt sted på selve billedet af vores "Stang" med mønter på.
     var backgroundHeight = $("#wheel").height();
     var backgroundWidth = backgroundHeight * 15
     var numberWidth = backgroundWidth / 15;
@@ -80,23 +87,32 @@ function runto(id) {
     var numberOffset = Math.floor(Math.random() * (numberWidth - -numberWidth + 1) + -numberWidth)
     var gotoWidth = -repeats - (numberWidth * id) - numberWidth / 2 + $("#wheel").width() / 2 + numberOffset / 2
     if (id == -1) {
-        
+        //  Her animeres "stangen" der ruller. Den går hen til det punkt som passer på det id den har fået.
         $("#wheel").animate({ 'background-position-x': -(numberWidth * 14) - numberWidth / 2 + $("#wheel").width() / 2 + 'px' }, 1000, "swing")
         return;
     }
+    // her bliver en funktion kaldt som disabler knapperne man kan bruge til at bette med
     disableButs();
     //$("#wheel").css('background-position-x', gotoWidth + "px")
+
+    // Her vil vores hjul gå tilbage tli startpostiionen;
     $("#wheel").animate({ 'background-position-x': gotoWidth + 'px' }, 10000, "swing", function () {
         setTimeout(function () {
             $("#wheel-overlay-dark").fadeIn(500);
+            //samtidig med at hjulet går tilbage vil det seneste udfald bliver append til en array som giver os
+            // de seneste 10 runders udfald.
             pushCoin(id);
+            // her opdateres de seneste 100 runders udfald
             last100();
+            // her bliver knapperne gjort aktive igen
             displayButs();
+            // Her fjerens de bets der var i sidste rundte så nogle nye kan bette igen
             clearBets();
             if (winRound.update) {
                 $("#balance").text((winRound.amount).toFixed(2))
                 winRound.update = false;
             }
+            // her animeres hjulet tilbage til startpostition.
             $("#wheel").animate({ 'background-position-x': -repeats - (numberWidth * 14) - numberWidth / 2 + $("#wheel").width() / 2 + 'px' }, 1000, "swing", function () {
                 $("#wheel").css('background-position-x', -(numberWidth * 14) - numberWidth / 2 + $("#wheel").width() / 2 + 'px')
             })
@@ -104,16 +120,8 @@ function runto(id) {
     });
 }
 
-function displayButs(){
-    document.getElementById('ct-bet').disabled = false;
-    document.getElementById('jack-bet').disabled = false;
-    document.getElementById('t-bet').disabled = false;
-    var bets = document.getElementsByClassName("bets-style");
-    for (var i = 0; i < bets.length; i++) {
-        bets[i].style.opacity = 1;
-    }
-}
 
+// funktionen der disabler knapperne og felterne
 function disableButs() {
     document.getElementById('ct-bet').disabled = true;
     document.getElementById('jack-bet').disabled = true;
@@ -124,15 +132,29 @@ function disableButs() {
     }
 }
 
+// funktionen der gør knapperne og fleterne tydelige igen
+function displayButs() {
+    document.getElementById('ct-bet').disabled = false;
+    document.getElementById('jack-bet').disabled = false;
+    document.getElementById('t-bet').disabled = false;
+    var bets = document.getElementsByClassName("bets-style");
+    for (var i = 0; i < bets.length; i++) {
+        bets[i].style.opacity = 1;
+    }
+}
 
+// De to næste funktioner håndtere knapperne der øger værdien inde i enter amount fletet
+// den første funktion her håndtere om den skal clear inputfeltet eller om den skal tilføje en værdi
 function amount(amount1) {
     if (amount1 == 'clear') {
         inputFelt[0].value = "";
     } else {
+        // her kaldes funktionen der beregne den nye værdie
         cal(amount1);
     }
 }
 
+// denne funktion beregner hvad den ny værdi i inputfelter skal være
 function cal(amount1) {
     if (inputFelt[0].value == "") {
         inputFelt[0].value = 0;
@@ -155,7 +177,7 @@ function cal(amount1) {
     inputFelt[0].value = val.toFixed(2);
 }
 
-
+// Denne funktion appender en mønt til rækken med de 10 seneste udfald
 function pushCoin(id) {
     if ($('#last10-col').children().length > 9) {
         $('#last10-col').children()[0].remove()
@@ -169,6 +191,7 @@ function pushCoin(id) {
     } 
 }
 
+// denne funktion sætter HTML elememterne lig med den værdi som ligger i dictionarien med variabelnavnet last_100
 function last100() {
     document.getElementById('last100-jackpot').innerHTML = last_100.jackpot;
     document.getElementById('last100-counter').innerHTML = last_100.counter;
@@ -178,7 +201,8 @@ function last100() {
 
 
 
-
+// Her tilføjes navn og amount under den mønt man har valgt
+// Det sker ved at der bliver tilføjet nogle HTML elementer til siden.
 function addNewBet(color, amount, username) {
     var chosenCoin;
     if (color == "counter") {
