@@ -9,7 +9,7 @@
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark">
+    <nav style="z-index: 11;" class="navbar navbar-expand-lg navbar-dark">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">
                 <object data='~/Images/csgohtx.svg' type='image/svg+xml' height="50" width="auto">
@@ -34,40 +34,45 @@
                     </li>
                 </ul>
                 <ul class="navbar-nav">
-                    <li id="balance-div">
-                        <div>
-                            <p id="balance">@Model.Amount.ToString("0.00")</p>
-                        </div>
-                        
-                    </li>
-                    <li class="nav-item" style="margin-right:25px;">
-                        @{
-                            if (Request.IsAuthenticated)
+                    @{
+                        if (Request.IsAuthenticated)
+                        {
+                            <li id="balance-div">
+                                <div>
+                                    <p id="balance">@Model.Amount.ToString("0.00")</p>
+                                </div>
+
+                            </li>
+                        }
+                    }
+                <li class="nav-item" style="margin-right:25px;">
+                    @{
+                        if (!Request.IsAuthenticated)
+                        {
+                            using (Html.BeginForm("LoginSteam", "Account", new { ReturnUrl = ViewBag.ReturnUrl }))
                             {
-                                using (Html.BeginForm("LoginSteam", "Account", new { ReturnUrl = ViewBag.ReturnUrl }))
-                                {
-                                    @Html.AntiForgeryToken();
-                                    <div id="socialLogin">
+                                @Html.AntiForgeryToken();
+                                <div id="socialLogin">
 
-                                        <button type="submit" class="btn btn-success navnbar-btn" id="Steam" name="provider" value="Steam" title="Login using steam">@Model.Username</button>
+                                    <button type="submit" class="btn btn-success navnbar-btn" id="Steam" name="provider" value="Steam" title="Login using steam">Login Steam</button>
 
-                                    </div>
-                                }
-                            }
-                            else
-                            {
-                                using (Html.BeginForm("LoginSteam", "Account", new { ReturnUrl = ViewBag.ReturnUrl }))
-                                {
-                                    @Html.AntiForgeryToken();
-                                    <div id="socialLogin">
-
-                                        <button type="submit" class="btn btn-success navnbar-btn" id="Steam" name="provider" value="Steam" title="Login using steam">Steam</button>
-
-                                    </div>
-                                }
+                                </div>
                             }
                         }
-                    </li>
+                        else
+                        {
+                            using (Html.BeginForm("SignOut", "Account", new { ReturnUrl = ViewBag.ReturnUrl }))
+                            {
+                                @Html.AntiForgeryToken();
+                                <div id="socialLogin">
+
+                                    <button type="submit" class="btn btn-danger navnbar-btn" id="Steam" title="Login using steam">Sign Out</button>
+
+                                </div>
+                            }
+                        }
+                    }
+                </li>
                 </ul>
             </div>
 

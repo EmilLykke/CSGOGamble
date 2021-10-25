@@ -124,6 +124,14 @@ namespace CSGOGamble.Controllers
                 throw ex;
             }
         }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult SignOut()
+        {
+            authenticationManager.SignOut();
+            return this.RedirectToAction("Index", "Home");
+        }
         #endregion
         #region Redirect to local method.    
         /// <summary>  
