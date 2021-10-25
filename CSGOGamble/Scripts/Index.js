@@ -1,5 +1,6 @@
 ﻿
-
+// Her bliver inputfeltet hvor man kan skrive sin amount "sat fast" til en variabel so hedder inputFelt
+// det gør at vi kan ændre værdien som står der i ved hjælp af af de forskellige knapper.
 var inputFelt = document.getElementsByName('name');
 var coins = [];
 var last_100 = {counter: 0, terrorist: 0, jackpot: 0}
@@ -72,7 +73,12 @@ function CountDownTimer(dt) {
     timer = setInterval(showRemaining, 100);
 }
 
+// denne function bliver kaldt hver 40 sekund og er den der sørger for at vores "roulette" ruller
+// id'et som bliver parset er den coins som den skal lande på. Id'et bliver sendt med fra serveren som kører,
+// algoritmen som bestmmer rundens udfald.
 function runto(id) {
+    // de første par linjer her gør det muligt for os at bestemmer hvor på vore roulete vi er. Altså
+    // det gør det muligt for os at rulle til et bestemt sted på selve billedet af vores "Stang" med mønter på.
     var backgroundHeight = $("#wheel").height();
     var backgroundWidth = backgroundHeight * 15
     var numberWidth = backgroundWidth / 15;
@@ -80,23 +86,32 @@ function runto(id) {
     var numberOffset = Math.floor(Math.random() * (numberWidth - -numberWidth + 1) + -numberWidth)
     var gotoWidth = -repeats - (numberWidth * id) - numberWidth / 2 + $("#wheel").width() / 2 + numberOffset / 2
     if (id == -1) {
-        
+        //  Her animeres "stangen" der ruller. Den går hen til det punkt som passer på det id den har fået.
         $("#wheel").animate({ 'background-position-x': -(numberWidth * 14) - numberWidth / 2 + $("#wheel").width() / 2 + 'px' }, 1000, "swing")
         return;
     }
+    // her bliver en funktion kaldt som disabler knapperne man kan bruge til at bette med
     disableButs();
     //$("#wheel").css('background-position-x', gotoWidth + "px")
+
+    // Her vil vores hjul gå tilbage tli startpostiionen;
     $("#wheel").animate({ 'background-position-x': gotoWidth + 'px' }, 10000, "swing", function () {
         setTimeout(function () {
             $("#wheel-overlay-dark").fadeIn(500);
+            //samtidig med at hjulet går tilbage vil det seneste udfald bliver append til en array som giver os
+            // de seneste 10 runders udfald.
             pushCoin(id);
+            // her opdateres de seneste 100 runders udfald
             last100();
+            // her bliver knapperne gjort aktive igen
             displayButs();
+            // Her fjerens de bets der var i sidste rundte så nogle nye kan bette igen
             clearBets();
             if (winRound.update) {
                 $("#balance").text((winRound.amount).toFixed(2))
                 winRound.update = false;
             }
+            // her animeres hjulet tilbage til startpostition.
             $("#wheel").animate({ 'background-position-x': -repeats - (numberWidth * 14) - numberWidth / 2 + $("#wheel").width() / 2 + 'px' }, 1000, "swing", function () {
                 $("#wheel").css('background-position-x', -(numberWidth * 14) - numberWidth / 2 + $("#wheel").width() / 2 + 'px')
             })
