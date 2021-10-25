@@ -2,9 +2,10 @@
   "ExpandedNodes": [
     "",
     "\\CSGOGamble",
+    "\\CSGOGamble\\Betting",
     "\\CSGOGamble\\Views",
     "\\CSGOGamble\\Views\\Home"
   ],
-  "SelectedNode": "\\CSGOGamble\\Views\\Home\\Index.cshtml",
+  "SelectedNode": "\\CSGOGamble\\Betting\\mainFunctionality.cs",
   "PreviewInSolutionExplorer": false
 }

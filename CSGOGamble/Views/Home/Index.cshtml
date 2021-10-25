@@ -117,23 +117,22 @@
                 <div class="total-bets">
                     <div class="total-bets-col1">
                         <p class="margin-right-entries" id="counter-total-entries">
-                            12
+                            @Model.Bets.Counter.Count()
                         </p>
                         <p> Bets Total</p>
                     </div>
                     <div class="total-bets-col2">
                         <img class="margin-right-entries" src="~/Images/coinstack.svg" />
-                        <p id="total-amount-counter">50,23</p>
+                        <p id="total-amount-counter">
+                            @Model.Bets.CounterTotal.ToString("0.00")
+                        </p>
                     </div>
                 </div>
                 <div class="all-bets" id="counter-entries">
                     @{
-                        foreach (var bet in Model.Bets)
+                        foreach (var bet in Model.Bets.Counter)
                         {
-                            if (bet.color == "counter")
-                            {
-                                <div class="person-bet"><img src="~/Images/counter.svg"><div><p id="personName">@bet.users.username</p><p id="amount">@bet.amount.ToString("0.00")</p></div></div>
-                            }
+                            <div class="person-bet"><img src="~/Images/counter.svg"><div><p id="personName">@bet.users.username</p><p id="amount">@bet.amount.ToString("0.00")</p></div></div>
                         }
                     }
                 </div>
@@ -164,23 +163,20 @@
                 <div class="total-bets">
                     <div class="total-bets-col1">
                         <p class="margin-right-entries" id="jackpot-total-entries">
-                            12
+                            @Model.Bets.Jackpot.Count()
                         </p>
                         <p> Bets Total</p>
                     </div>
                     <div class="total-bets-col2">
                         <img class="margin-right-entries" src="~/Images/coinstack.svg" />
-                        <p id="total-amount-jackpot">50,23</p>
+                        <p id="total-amount-jackpot">@Model.Bets.JackpotTotal.ToString("0.00")</p>
                     </div>
                 </div>
                 <div class="all-bets" id="jackpot-entries">
                     @{
-                        foreach (var bet in Model.Bets)
+                        foreach (var bet in Model.Bets.Jackpot)
                         {
-                            if (bet.color == "jackpot")
-                            {
-                                <div class="person-bet"><img src="~/Images/jackpot.svg"><div><p id="personName">@bet.users.username</p><p id="amount">@bet.amount.ToString("0.00")</p></div></div>
-                            }
+                            <div class="person-bet"><img src="~/Images/jackpot.svg"><div><p id="personName">@bet.users.username</p><p id="amount">@bet.amount.ToString("0.00")</p></div></div>
                         }
                     }
                 </div>
@@ -210,23 +206,20 @@
                 <div class="total-bets">
                     <div class="total-bets-col1">
                         <p class="margin-right-entries" id="terror-total-entries">
-                            12
+                            @Model.Bets.Terrorist.Count()
                         </p>
                         <p> Bets Total</p>
                     </div>
                     <div class="total-bets-col2">
                         <img class="margin-right-entries" src="~/Images/coinstack.svg" />
-                        <p id="total-amount-terror">50,23</p>
+                        <p id="total-amount-terror">@Model.Bets.TerroristTotal.ToString("0.00")</p>
                     </div>
                 </div>
                 <div class="all-bets" id="terror-entries">
                     @{
-                        foreach (var bet in Model.Bets)
+                        foreach (var bet in Model.Bets.Terrorist)
                         {
-                            if (bet.color == "terrorist")
-                            {
-                                <div class="person-bet"><img src="~/Images/terrorist.svg"><div><p id="personName">@bet.users.username</p><p id="amount">@bet.amount.ToString("0.00")</p></div></div>
-                            }
+                            <div class="person-bet"><img src="~/Images/terrorist.svg"><div><p id="personName">@bet.users.username</p><p id="amount">@bet.amount.ToString("0.00")</p></div></div>
                         }
                     }
                 </div>
