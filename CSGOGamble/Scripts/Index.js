@@ -37,20 +37,40 @@ $(function () {
     }).fail(function (error) { alert("Failed to connect!"); });
 });
 
+function error(title, message) {
+    var elem = $("<div class='error' style='transform: translateX(330px)'><div class='errorcontent'><p class='errortitle'>" + title + "</p><p class='errormessage'>" + message + "</p></div ><div class='errorbar'></div></div >").appendTo("#error-section")
+    setTimeout(function () {
+        elem.css('transform', 'translateX(0)')
+        elem.find(".errorbar").css('width', '0px')
+        setTimeout(function () {
+            elem.css('transform', 'translateX(330px)')
+            setTimeout(function () {
+                elem.remove()
+            },200)
+        },8000)
+    }, 50)
+}
 
 function bet(color) {
     var amount = $('input[name=name]').val()
-    if (parseFloat(amount) > parseFloat($("#balance").text())) {
-        return;
-    }
-
-    $.post('/Api/Bet', { amountString: amount, color: color }, function (data1) {
-        if (!data1.error) {
-            console.log(data1)
-            $("#balance").text((data1.newAmount).toFixed(2))
+    if (parseFloat(amount)) {
+        if (parseFloat(amount) < parseFloat($("#balance").text())) {
+            $.post('/Api/Bet', { amountString: amount, color: color }, function (data1) {
+                if (!data1.error) {
+                    console.log(data1)
+                    $("#balance").text((data1.newAmount).toFixed(2))
+                } else {
+                    error(data1.title, data1.message)
+                }
+            })
         } else {
+            error("Insufficient funds", "You do not have enough coins to place this bet.")
         }
-    })
+    } else if (amount == "") {
+        error("No amount", "Please select the amount of coins you would like to bet.")
+    } else {
+        error("Invalid amount", "The given amount in input field is invalid, please write a number seperated by dot.")
+    }
 }
 
 function CountDownTimer(dt) {
@@ -205,19 +225,21 @@ function last100() {
 // Det sker ved at der bliver tilføjet nogle HTML elementer til siden.
 function addNewBet(color, amount, username) {
     var chosenCoin;
+    var img = document.createElement("img");
     if (color == "counter") {
         chosenCoin = "counter-entries";
+        img.src = "Images/counter.svg";
     } else if (color == "jackpot") {
         chosenCoin = "jackpot-entries";
+        img.src = "Images/jackpot.svg";
     } else if (color == "terrorist"){
         chosenCoin = "terror-entries";
+        img.src = "Images/terrorist.svg";
     }
 
     var area = document.getElementById(chosenCoin);
     var firstDiv = document.createElement("div");
     firstDiv.className = "person-bet";
-    var img = document.createElement("img");
-    img.src = "Images/counter.svg";
     firstDiv.appendChild(img);
     var secondDiv = document.createElement("div");
     firstDiv.appendChild(secondDiv);
@@ -231,7 +253,7 @@ function addNewBet(color, amount, username) {
     var val = document.getElementsByName("name");
     var val1 = val[0].value;
     
-    secondP.innerHTML = amount;
+    secondP.innerHTML = amount.toFixed(2);
     secondDiv.appendChild(secondP);
 
     area.appendChild(firstDiv);
@@ -248,23 +270,23 @@ function addNewBet(color, amount, username) {
         countertotal += parseFloat($(this).find("#amount").html())
     })
     $("#counter-total-entries").text($("#counter-entries").children().length)
-    $("#total-amount-counter").text(countertotal)
+    $("#total-amount-counter").text(countertotal.toFixed(2))
 
     $("#jackpot-total-entries").text($("#jackpot-entries").children().length)
-    $("#total-amount-jackpot").text(jackpottotal)
+    $("#total-amount-jackpot").text(jackpottotal.toFixed(2))
 
-    $("#total-amount-terror").text(terroristtotal)
+    $("#total-amount-terror").text(terroristtotal.toFixed(2))
     $("#terror-total-entries").text($("#terror-entries").children().length)
 }
 
 function clearBets() {
     $("#counter-total-entries").text(0)
-    $("#total-amount-counter").text(0)
+    $("#total-amount-counter").text(0.00)
 
     $("#jackpot-total-entries").text(0)
-    $("#total-amount-jackpot").text(0)
+    $("#total-amount-jackpot").text(0.00)
 
-    $("#total-amount-terror").text(0)
+    $("#total-amount-terror").text(0.00)
     $("#terror-total-entries").text(0)
 
     $("#jackpot-entries").empty()

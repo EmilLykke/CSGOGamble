@@ -153,8 +153,8 @@ namespace CSGOGamble.Betting
                 key = databaseManager.roundkeys.Add(new roundkeys { secret = GetRandomString(64), @public = GetRandomString(12) });
                 roundNumber = 0;
             }
-            //Vi sætter variablen nextRoundTime til 40 sekunder i fremtiden.
-            nextRoundTime = DateTime.UtcNow.AddSeconds(40);
+            //Vi sætter variablen nextRoundTime til 30 sekunder i fremtiden.
+            nextRoundTime = DateTime.UtcNow.AddSeconds(30);
             //Nu tilføjer vi en ny runde med alt den information vi har, den sættes til completet = false fordi rundens udkom ikke er udregnet endnu. 
             rounds nextRound = databaseManager.rounds.Add(new rounds { complete = 0, keyID = key.ID, number = roundNumber+1, runtime = nextRoundTime, color = null});
             //Nu gemmer vi alle de ændringer vi har lavet i databasen i denne funktione, det er vigtigt for ellers får vi ikke de nyeste informationer når vi kalder databasen fra andre klasser

@@ -1,7 +1,8 @@
 ﻿@{
     ViewBag.Title = "Home Page";
 }
-
+<section id="error-section">
+</section>
 <section id="index-section">
     <div class="jumbotron" id="index-wheel">
         <div id="wheel-overlay">
@@ -117,7 +118,7 @@
                 <div class="total-bets">
                     <div class="total-bets-col1">
                         <p class="margin-right-entries" id="counter-total-entries">
-                            @Model.Bets.Counter.Count()
+                            @Model.Bets.Counter.Count
                         </p>
                         <p> Bets Total</p>
                     </div>
@@ -163,7 +164,7 @@
                 <div class="total-bets">
                     <div class="total-bets-col1">
                         <p class="margin-right-entries" id="jackpot-total-entries">
-                            @Model.Bets.Jackpot.Count()
+                            @Model.Bets.Jackpot.Count
                         </p>
                         <p> Bets Total</p>
                     </div>
@@ -206,7 +207,7 @@
                 <div class="total-bets">
                     <div class="total-bets-col1">
                         <p class="margin-right-entries" id="terror-total-entries">
-                            @Model.Bets.Terrorist.Count()
+                            @Model.Bets.Terrorist.Count
                         </p>
                         <p> Bets Total</p>
                     </div>
