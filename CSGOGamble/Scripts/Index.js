@@ -91,7 +91,7 @@ function CountDownTimer(dt) {
         }
     }
 
-    timer = setInterval(showRemaining, 100);
+    timer = setInterval(showRemaining, 20);
 }
 
 // denne function bliver kaldt hver 40 sekund og er den der sørger for at vores "roulette" ruller
