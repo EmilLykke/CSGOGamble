@@ -6,6 +6,6 @@
     "\\CSGOGamble\\Views",
     "\\CSGOGamble\\Views\\Home"
   ],
-  "SelectedNode": "\\CSGOGamble\\Betting\\mainFunctionality.cs",
+  "SelectedNode": "\\CSGOGamble\\Views\\Home\\Index.cshtml",
   "PreviewInSolutionExplorer": false
 }
