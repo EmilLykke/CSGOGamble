@@ -54,7 +54,7 @@ function error(title, message) {
 function bet(color) {
     var amount = $('input[name=name]').val()
     if (parseFloat(amount)) {
-        if (parseFloat(amount) < parseFloat($("#balance").text())) {
+        if (parseFloat(amount) <= parseFloat($("#balance").text())) {
             $.post('/Api/Bet', { amountString: amount, color: color }, function (data1) {
                 if (!data1.error) {
                     console.log(data1)

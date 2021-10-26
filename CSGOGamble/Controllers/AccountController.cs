@@ -113,10 +113,13 @@ namespace CSGOGamble.Controllers
             {
                 // Setting    
                 claims.Add(new Claim(ClaimTypes.Name, id));
+                claims.Add(new Claim("ActiveBet", "false"));
+
                 var claimIdenties = new ClaimsIdentity(claims, DefaultAuthenticationTypes.ApplicationCookie);
                 var ctx = Request.GetOwinContext();
                 // Sign In.    
                 authenticationManager.SignIn(new AuthenticationProperties() {IsPersistent = isPersistent }, claimIdenties);
+                Session["ActiveBet"] = false;
             }
             catch (Exception ex)
             {

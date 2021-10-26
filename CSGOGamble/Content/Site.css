@@ -7,11 +7,46 @@ body {
     background-color: #1a1a22;
 }
 
+@media screen and (max-width: 900px) {
+    #but2, #but3, #but5, #but6, #but7, #but8 {
+        display: none;
+    }
+}
+
+
+@media screen and (min-width: 900px) {
+    #but3, #but6 {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 1000px) {
+    #last100 > .column1 {
+        display: none;
+    }
+
+    #last100 > .column2 {
+        display: none;
+    }
+
+    #last100 {
+        display: flex !important;
+        justify-content: center !important;
+    }
+}
+
+@media screen and (min-width: 1200px) {
+    #but1, #but2, #but3, #but4, #but5, #but6, #but7, #but8, #but9 {
+        display: block;
+    }
+}
+
 #error-section {
-    position: absolute;
+    position: fixed;
     width: 300px;
     height: auto;
     right: 20px;
+    z-index: 10;
     bottom: 15px;
     display: flex;
     flex-direction: column-reverse;
@@ -155,6 +190,7 @@ body {
 
 #index-section {
     width: 80%;
+    margin-bottom: 20px;
 }
 
 #last100-div {
@@ -178,6 +214,7 @@ body {
 
 #betting-amount-table-div {
     border: solid;
+    overflow: hidden;
     border-width: 3px;
     border-radius: 15px;
     background-color: #2d2d39;
@@ -195,7 +232,7 @@ body {
 
 #enter-amount input {
     background: none;
-    
+    width: 110px;
     border:none;
     color:rgba(255,255,255, 0.57);
 }
@@ -206,9 +243,8 @@ body {
 }
 
 #choose-amount{
-    display:grid;
-    grid-template-columns:repeat(9,1fr);
-    
+    display: flex;
+    justify-content: end;
 }
 
 .col1 {
