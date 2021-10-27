@@ -29,5 +29,6 @@ namespace CSGOGamble
         public virtual DbSet<roundkeys> roundkeys { get; set; }
         public virtual DbSet<rounds> rounds { get; set; }
         public virtual DbSet<users> users { get; set; }
+        public virtual DbSet<messages> messages { get; set; }
     }
 }

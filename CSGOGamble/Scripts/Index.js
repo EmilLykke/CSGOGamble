@@ -4,11 +4,14 @@
 var inputFelt = document.getElementsByName('name');
 var coins = [];
 var last_100 = {counter: 0, terrorist: 0, jackpot: 0}
-var winRound = {update: false, amount: 0};
-
 
 $(function () {
     runto(-1);
+    $("#chat-inputfield").keypress(function (e) {
+        if (e.which == 13) {
+            sendMessage($(this).val())
+        }
+    })
     var chat = $.connection.bettingHub;
     chat.client.sendNext = function (time, number) {
         CountDownTimer(new Date(time))
@@ -32,10 +35,40 @@ $(function () {
         winRound.amount = amount;
     }
 
+    chat.client.sendNewMessage = function (user, message) {
+        $("#chat-messages").append("<div id='chat-message'><img src='/Images/counter.svg' /><div id='chat-content'><p id='chat-name'>" + user + "</p><p id='chat-text'>" + message + "</p></div></div>")
+        toogleChat(true);
+    }
+
     $.connection.hub.start().done(function () {
         chat.server.getNextRound();
     }).fail(function (error) { alert("Failed to connect!"); });
 });
+
+function sendMessage(message) {
+    console.log(message)
+    if (message != "") {
+        $("#chat-inputfield").val('');
+        $.post('/Api/Message', { message: message }, function (data1) {
+            if (data1.error) {
+                error(data1.title, data1.message)
+            }
+        })
+    } else {
+        error("Empty message", "Please enter a message before sending")
+    }
+}
+
+function toogleChat(show) {
+    if (show) {
+        $("#chat-toggle").hide();
+        $("#chat-section").removeClass("hidden")
+    } else {
+        $("#chat-toggle").show();
+        $("#chat-section").addClass("hidden")
+
+    }
+}
 
 function error(title, message) {
     var elem = $("<div class='error' style='transform: translateX(330px)'><div class='errorcontent'><p class='errortitle'>" + title + "</p><p class='errormessage'>" + message + "</p></div ><div class='errorbar'></div></div >").appendTo("#error-section")

@@ -3,17 +3,19 @@
 }
 <section id="error-section">
 </section>
-<section id="chat-section">
-    <div id="chat-messages">
-        <div id="chat-message">
-            <img src="~/Images/counter.svg" />
-            <div id="chat-content">
-                <p id="chat-name">Abdi</p>
-                <p id="chat-text">Hello motherfuckers</p>
-            </div>
+<div id="chat-toggle" onclick="toogleChat(true)">
+    <img src="~/Images/baseline_message_black_24dp.png" alt="Alternate Text" />
+</div>
+<section id="chat-section" class="hidden">
+    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" onclick="toogleChat(false)" fill="#000000"><path d="M0 0h24v24H0z" fill="none" /><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" /></svg>
+    <div id="chat-messages-wrapper">
+        <div id="chat-messages">
         </div>
     </div>
-    <input id="chat-input"></input>
+    <div id="chat-input">
+        <input id="chat-inputfield" placeholder="Write message"></input>
+        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#000000" onclick="sendMessage($('#chat-inputfield').val())"><path d="M0 0h24v24H0z" fill="none" /><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z" /></svg>
+    </div>
 </section>
 <section id="index-section">
     <div class="jumbotron" id="index-wheel">

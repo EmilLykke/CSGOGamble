@@ -548,6 +548,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="messages.cs">
+      <DependentUpon>DataBase.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\AccountViewModel.cs" />
     <Compile Include="Models\BetResult.cs" />
     <Compile Include="Models\IndexModel.cs" />
@@ -591,12 +594,14 @@
     </Content>
     <None Include="Properties\PublishProfiles\IISProfile.pubxml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
+    <Content Include="Images\baseline_message_black_24dp.png" />
     <Content Include="Images\coinspng.png" />
     <Content Include="Images\coinstack.svg" />
     <Content Include="Images\counter.svg" />
     <Content Include="Images\csgohtx.svg" />
     <Content Include="Images\jackpot.svg" />
     <Content Include="Images\logo.svg" />
+    <Content Include="Images\send_black_24dp.svg" />
     <Content Include="Images\stang.svg" />
     <Content Include="Images\terrorist.svg" />
     <Content Include="Scripts\Index.js" />

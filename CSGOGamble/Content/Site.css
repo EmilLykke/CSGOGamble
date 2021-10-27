@@ -41,49 +41,121 @@ body {
     }
 }
 
+#chat-toggle {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: white;
+    z-index: 15;
+    position: fixed;
+    bottom: 25px;
+    left: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+#chat-toggle img{
+    width: 25px;
+}
+
+#chat-section.hidden {
+    width: 0;
+}
+
 #chat-section {
+    transition: 500ms;
     width: 300px;
     height: 100vh;
     position: fixed;
     left: 0;
     bottom: 0;
-    z-index: 10;
-    background: white;
-    display: grid;
-    grid-template-rows: auto 50px;
+    z-index: 12;
 }
+
+#chat-section > svg {
+    position: absolute;
+    top: 10px;
+    fill: white;
+    cursor: pointer;
+    right: 10px;
+    width: 30px;
+    height: 30px;
+}
+
 
 #chat-input {
     position: absolute;
     bottom: 0;
     width: 100%;
-    height: 100%;
-    background: #121212;
-    grid-row: 2;
-    border: none;
+    height: 50px;
+    background: #363940;
     color: white;
-    padding: 0 10px;
 }
 
-#chat-input:focus {
+#chat-inputfield {
+    width: 80%;
+    border: none;
+    color: white;
+    height: 100%;
+    margin: 0 10px;
+    padding: 10px 0px;
+    background: transparent;
+}
+
+#chat-inputfield:focus {
     outline: none;
+}
+
+#chat-input svg {
+    fill: white;
+    height: 100%;
+    padding: 12px 0px;
+    position: relative;
+    cursor: pointer;
+}
+
+#chat-messages-wrapper {
+    height: calc(100vh - 50px);
+    width: 100%;
+    background: #4c4d5a;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column-reverse;
+}
+
+
+#chat-messages-wrapper::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    border-radius: 10px;
+    background-color: #F5F5F5;
+}
+
+#chat-messages-wrapper::-webkit-scrollbar {
+    width: 12px;
+    background-color: #F5F5F5;
+}
+
+#chat-messages-wrapper::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+    background-color: #555;
 }
 
 #chat-messages {
     width: 100%;
-    height: auto;
-    grid-row: 1;
-    height: 100%;
     display: flex;
-    flex-direction: column-reverse;
-    align-self: flex-end;
-    background: #242530;
+    flex-direction: column;
+    align-self: flex-start;
+    justify-content: flex-end;
 }
 
 #chat-message {
     margin: 10px 10px;
     display: grid;
     grid-template-columns: 30px auto;
+    word-break: break-all;
 }
 
 #chat-message img {
