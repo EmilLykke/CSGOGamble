@@ -80,5 +80,31 @@ namespace CSGOGamble.Controllers
             }
             return Json(new PostError("Not signed in", "Please sign in to place a bet"));
         }
+    
+        [HttpPost]
+        public ActionResult Message(string message)
+        {
+            if(Request.IsAuthenticated)
+            {
+                int userId = Int32.Parse(User.Identity.Name);
+                users user = databaseManager.users.SingleOrDefault(x => x.ID == userId);
+                if(user != null)
+                {
+                    if (!String.IsNullOrEmpty(message))
+                    {
+                        if (message.Length < 500)
+                        {
+                            databaseManager.messages.Add(new messages { message = message, userID = user.ID });
+                            connectionManager.Clients.All.sendNewMessage(user.username, message);
+                            var changes = this.databaseManager.SaveChanges();
+                            return Content("success");
+                        }
+                        return Json(new PostError("Message too long", "Only 500 characters allowed"));
+                    }
+                    return Json(new PostError("Empty message", "Please enter a message"));
+                }
+            }
+            return Json(new PostError("Not signed in", "Please sign in to send a message"));
+        }
     }
 }

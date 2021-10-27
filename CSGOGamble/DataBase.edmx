@@ -15,6 +15,15 @@
           <Property Name="userID" Type="int" Nullable="false" />
           <Property Name="color" Type="varchar" MaxLength="20" Nullable="false" />
         </EntityType>
+        <EntityType Name="messages">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="message" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="userID" Type="int" Nullable="false" />
+          <Property Name="timestamp" Type="timestamp" Precision="0" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
         <EntityType Name="roundkeys">
           <Key>
             <PropertyRef Name="ID" />
@@ -47,6 +56,7 @@
         </EntityType>
         <EntityContainer Name="CsgoBettingModelStoreContainer">
           <EntitySet Name="bets" EntityType="Self.bets" Schema="CsgoBetting" store:Type="Tables" />
+          <EntitySet Name="messages" EntityType="Self.messages" Schema="CsgoBetting" store:Type="Tables" />
           <EntitySet Name="roundkeys" EntityType="Self.roundkeys" Schema="CsgoBetting" store:Type="Tables" />
           <EntitySet Name="rounds" EntityType="Self.rounds" Schema="CsgoBetting" store:Type="Tables" />
           <EntitySet Name="users" EntityType="Self.users" Schema="CsgoBetting" store:Type="Tables" />
@@ -100,6 +110,7 @@
           <Property Name="steam" Type="String" MaxLength="256" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="amount" Type="Double" Nullable="false" />
           <NavigationProperty Name="bets" Relationship="CsgoBettingModel.betsusers" FromRole="users" ToRole="bets" />
+          <NavigationProperty Name="messages" Relationship="CsgoBettingModel.usersmessages" FromRole="users" ToRole="messages" />
         </EntityType>
         <EntityContainer Name="CsgoBettingEntities1" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="bets" EntityType="Self.bets" />
@@ -117,6 +128,11 @@
           <AssociationSet Name="betsrounds" Association="CsgoBettingModel.betsrounds">
             <End Role="bets" EntitySet="bets" />
             <End Role="rounds" EntitySet="rounds" />
+          </AssociationSet>
+          <EntitySet Name="messages" EntityType="CsgoBettingModel.messages" />
+          <AssociationSet Name="usersmessages" Association="CsgoBettingModel.usersmessages">
+            <End Role="users" EntitySet="users" />
+            <End Role="messages" EntitySet="messages" />
           </AssociationSet>
         </EntityContainer>
         <Association Name="roundkeysrounds">
@@ -152,6 +168,28 @@
             </Principal>
             <Dependent Role="bets">
               <PropertyRef Name="roundID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="messages">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="message" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="userID" Type="Int32" Nullable="false" />
+          <Property Name="timestamp" Type="DateTime" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="users" Relationship="CsgoBettingModel.usersmessages" FromRole="messages" ToRole="users" />
+        </EntityType>
+        <Association Name="usersmessages">
+          <End Type="CsgoBettingModel.users" Role="users" Multiplicity="1" />
+          <End Type="CsgoBettingModel.messages" Role="messages" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="users">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="messages">
+              <PropertyRef Name="userID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -202,6 +240,16 @@
                 <ScalarProperty Name="username" ColumnName="username" />
                 <ScalarProperty Name="steam" ColumnName="steam" />
                 <ScalarProperty Name="amount" ColumnName="amount" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="messages">
+            <EntityTypeMapping TypeName="CsgoBettingModel.messages">
+              <MappingFragment StoreEntitySet="messages">
+                <ScalarProperty Name="timestamp" ColumnName="timestamp" />
+                <ScalarProperty Name="userID" ColumnName="userID" />
+                <ScalarProperty Name="message" ColumnName="message" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -82,15 +82,15 @@ namespace CSGOGamble.Betting
                     //Hvis brugeren gættede rigtigt på counter eller terrorist får han dobbelt op hvis han gættede rigtigt på jackpot får han * 14
                     if (round.color == "counter" && bet.color == "counter")
                     {
-                        bet.users.amount += Math.Round(bet.amount * 2);
+                        bet.users.amount += Math.Round(bet.amount * 2, 2);
                     } else if (round.color == "terrorist" && bet.color == "terrorist")
                     {
-                        bet.users.amount += Math.Round(bet.amount * 2);
+                        bet.users.amount += Math.Round(bet.amount * 2, 2);
                     } else if (round.color == "jackpot" && bet.color == "jackpot")
                     {
                         //Sansyndligehden for at runden bliver jackpot er 1/15 da resultattallet 0 fra vores algoritme repræsentere jackpot
                         //Derfor får brugere som gættede rigtigt på jackpot * 14 tilbage
-                        bet.users.amount += Math.Round(bet.amount * 14);
+                        bet.users.amount += Math.Round(bet.amount * 14, 2);
                     }
                     //Nu kalder vi funktionen sendNewAmount i vores websocket, det sender en besked videre til klientens browser så han kan se at han har vundet
                     connectionManager.Clients.User(bet.users.ID.ToString()).sendNewAmount(bet.users.amount);

@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="df89d93461e84e1a9cdbb5c06fb8160e" Name="Diagram1">
+      <Diagram DiagramId="df89d93461e84e1a9cdbb5c06fb8160e" Name="Diagram1" ZoomLevel="118">
         <EntityTypeShape EntityType="CsgoBettingModel.bets" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="CsgoBettingModel.roundkeys" Width="1.5" PointX="4.75" PointY="4" IsExpanded="true" />
         <EntityTypeShape EntityType="CsgoBettingModel.rounds" Width="1.5" PointX="0.75" PointY="3.75" IsExpanded="true" />
@@ -12,6 +12,8 @@
         <AssociationConnector Association="CsgoBettingModel.roundkeysrounds" />
         <AssociationConnector Association="CsgoBettingModel.betsusers" />
         <AssociationConnector Association="CsgoBettingModel.betsrounds" />
+        <EntityTypeShape EntityType="CsgoBettingModel.messages" Width="1.5" PointX="6.375" PointY="0.75" />
+        <AssociationConnector Association="CsgoBettingModel.usersmessages" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
