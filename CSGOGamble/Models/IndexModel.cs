@@ -12,13 +12,15 @@ namespace CSGOGamble.Models
         public betList Bets { get; set; }
         public Last100Model Last100 { get; set; }
         public List<rounds> Last10 { get; set; }
-        public IndexModel(string Username, double Amount, List<rounds> Last10, List<bets> Bets, int counter, int terrorist, int jackpot)
+        public List<messages> Last10Messages { get; set; }
+        public IndexModel(string Username, double Amount, List<rounds> Last10, List<bets> Bets, int counter, int terrorist, int jackpot, List<messages> Last10Messages)
         {
             this.Username = Username;
             this.Amount = Amount;
             this.Bets = new betList(Bets);
             this.Last100 = new Last100Model(counter, terrorist, jackpot);
             this.Last10 = Last10;
+            this.Last10Messages = Last10Messages;
         }
     }
 

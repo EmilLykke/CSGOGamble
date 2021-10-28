@@ -15,15 +15,12 @@
                 <object data='~/Images/csgohtx.svg' type='image/svg+xml' height="50" width="auto">
                 </object>
             </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse justify-content-between" id="navbarNav">
+            <div class="navbar-expand justify-content-between" id="navbarNav">
                 <ul class="navbar-nav ">
                 </ul>
                 <ul class="navbar-nav">
                     @{
-                        if (Request.IsAuthenticated)
+                        if (Model.Username != null)
                         {
                             <li id="balance-div">
                                 <div>
@@ -35,11 +32,10 @@
                     }
                 <li class="nav-item" style="margin-right:25px;">
                     @{
-                        if (!Request.IsAuthenticated)
+                        if (Model.Username == null)
                         {
                             using (Html.BeginForm("LoginSteam", "Account", new { ReturnUrl = ViewBag.ReturnUrl }))
                             {
-                                @Html.AntiForgeryToken();
                                 <div id="socialLogin">
 
                                     <button type="submit" class="btn btn-success navnbar-btn" id="Steam" name="provider" value="Steam" title="Login using steam">Login Steam</button>
@@ -51,7 +47,6 @@
                         {
                             using (Html.BeginForm("SignOut", "Account", new { ReturnUrl = ViewBag.ReturnUrl }))
                             {
-                                @Html.AntiForgeryToken();
                                 <div id="socialLogin">
 
                                     <button type="submit" class="btn btn-danger navnbar-btn" id="Steam" title="Login using steam">Sign Out</button>

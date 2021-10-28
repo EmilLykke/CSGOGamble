@@ -11,7 +11,12 @@ namespace CSGOGamble.Controllers
     public class HomeController : Controller
     {
         //Vi opretter et nyt entity af vores database
-        private CsgoBettingEntities1 databaseManager = new CsgoBettingEntities1();
+        private CsgoBettingEntities1 databaseManager;
+        
+        public HomeController()
+        {
+            databaseManager = new CsgoBettingEntities1();
+        }
 
         //Her er vores actionresult når folk går ind på /Home/Index
         public ActionResult Index()
@@ -23,6 +28,7 @@ namespace CSGOGamble.Controllers
             //Find bets for runden
             List<bets> bets = round.bets.ToList();
             //Find de sidste 100 bets
+            List<messages> Last10Messages = databaseManager.messages.OrderByDescending(x => x.ID).Take(10).OrderBy(x => x.ID).ToList();
             List<rounds> last100 = this.databaseManager.rounds.Where(x => x.complete == 1).OrderByDescending(x => x.ID).Take(100).ToList();
             List<rounds> last10 = last100.OrderByDescending(x => x.ID).Take(10).OrderBy(x => x.ID).ToList();
             int counter = 0;
@@ -45,18 +51,25 @@ namespace CSGOGamble.Controllers
                 }
             }
             //Lav en indexmode som tager et brugernavn, mængde af benge, sidste 10 bets, og procentdel af udkom.
-            IndexModel model = new IndexModel(null, double.NaN, last10, bets, counter, terrorist, jackpot);
+            IndexModel model = new IndexModel(null, double.NaN, last10, bets, counter, terrorist, jackpot , Last10Messages);
             //Tjek om brugeren er logget ind
             if (Request.IsAuthenticated)
             {
                 string id = User.Identity.Name;
                 int idint = Int32.Parse(id);
                 users user = this.databaseManager.users.SingleOrDefault(u => u.ID == idint);
-                //Ændrer værdierne i indexmodel for username og amount
-                model.Username = user.username;
-                model.Amount = user.amount;
-                //Retuner index.cshtml view
-                return View(model);
+                if (user != null)
+                {
+                    //Ændrer værdierne i indexmodel for username og amount
+                    model.Username = user.username;
+                    model.Amount = user.amount;
+                    //Retuner index.cshtml view
+                    return View(model);
+                }
+                else {
+                    HttpContext.GetOwinContext().Authentication.SignOut();
+                    return View(model);
+                }
             } else
             {
                 //Retuner index.cshtml view hvor username og amount er null da brugeren ikke er logget ind
