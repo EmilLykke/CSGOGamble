@@ -3,9 +3,10 @@
     "",
     "\\CSGOGamble",
     "\\CSGOGamble\\Betting",
+    "\\CSGOGamble\\Controllers",
     "\\CSGOGamble\\Views",
     "\\CSGOGamble\\Views\\Home"
   ],
-  "SelectedNode": "\\CSGOGamble\\Views\\Home\\Index.cshtml",
+  "SelectedNode": "\\CSGOGamble\\CSGOGamble.sln",
   "PreviewInSolutionExplorer": false
 }
