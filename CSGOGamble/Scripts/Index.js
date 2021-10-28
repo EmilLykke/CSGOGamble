@@ -3,10 +3,19 @@
 // det gør at vi kan ændre værdien som står der i ved hjælp af af de forskellige knapper.
 var inputFelt = document.getElementsByName('name');
 var coins = [];
-var last_100 = {counter: 0, terrorist: 0, jackpot: 0}
+var last_100 = { counter: 0, terrorist: 0, jackpot: 0 }
+var winRound = {};
 
 $(function () {
-    runto(-1);
+    $(document).mouseup(function (e) {
+        var container = $("#chat-section");
+
+        // if the target of the click isn't the container nor a descendant of the container
+        if (!container.is(e.target) && container.has(e.target).length === 0) {
+            toogleChat(false);
+        }
+    });
+    runto(-1, true);
     $("#chat-inputfield").keypress(function (e) {
         if (e.which == 13) {
             sendMessage($(this).val())
@@ -21,9 +30,9 @@ $(function () {
         $("#wheel-overlay-dark").fadeOut(500);
         var number = parseInt(result, 10)
         if (number == 0) {
-            runto(14)
+            runto(14, true)
         } else {
-            runto(number-1)
+            runto(number-1, true)
         }
     };
     chat.client.sendNewBet = function (username, amount, color) {
@@ -43,6 +52,10 @@ $(function () {
     $.connection.hub.start().done(function () {
         chat.server.getNextRound();
     }).fail(function (error) { alert("Failed to connect!"); });
+});
+
+$(window).resize(function () {
+    runto(-1, false)
 });
 
 function sendMessage(message) {
@@ -117,10 +130,12 @@ function CountDownTimer(dt) {
     function showRemaining() {
         var now = new Date();
         var distance = end - now;
-        $("#countdown-time").text((distance / 1000).toFixed(1));
-        if (distance < 0) {
+        if (distance <= 0) {
+            $("#countdown-time").text(0.0);
             clearInterval(timer);
             return;
+        } else {
+            $("#countdown-time").text((distance / 1000).toFixed(1));
         }
     }
 
@@ -130,7 +145,7 @@ function CountDownTimer(dt) {
 // denne function bliver kaldt hver 40 sekund og er den der sørger for at vores "roulette" ruller
 // id'et som bliver parset er den coins som den skal lande på. Id'et bliver sendt med fra serveren som kører,
 // algoritmen som bestmmer rundens udfald.
-function runto(id) {
+function runto(id, delay) {
     // de første par linjer her gør det muligt for os at bestemmer hvor på vore roulete vi er. Altså
     // det gør det muligt for os at rulle til et bestemt sted på selve billedet af vores "Stang" med mønter på.
     var backgroundHeight = $("#wheel").height();
@@ -141,7 +156,7 @@ function runto(id) {
     var gotoWidth = -repeats - (numberWidth * id) - numberWidth / 2 + $("#wheel").width() / 2 + numberOffset / 2
     if (id == -1) {
         //  Her animeres "stangen" der ruller. Den går hen til det punkt som passer på det id den har fået.
-        $("#wheel").animate({ 'background-position-x': -(numberWidth * 14) - numberWidth / 2 + $("#wheel").width() / 2 + 'px' }, 1000, "swing")
+        $("#wheel").animate({ 'background-position-x': -(numberWidth * 14) - numberWidth / 2 + $("#wheel").width() / 2 + 'px' }, (delay) ? 1000 : 0, "swing")
         return;
     }
     // her bliver en funktion kaldt som disabler knapperne man kan bruge til at bette med

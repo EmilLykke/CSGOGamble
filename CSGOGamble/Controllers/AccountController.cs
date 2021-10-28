@@ -36,7 +36,6 @@ namespace CSGOGamble.Controllers
 
         [HttpPost]
         [AllowAnonymous]
-        [ValidateAntiForgeryToken]
         //Dette actionResult håndtere kaldt til /Account/LoginSteam over post. Den tager to værdier, en provider og returnUrl. Provideren vil altid være steam.
         public ActionResult LoginSteam(string provider, string returnUrl)
         {
@@ -70,16 +69,16 @@ namespace CSGOGamble.Controllers
                 var user = this.databaseManager.users.SingleOrDefault(u => u.username == loginInfo.DefaultUserName && u.steam == loginInfo.Login.ProviderKey);
                 if(user != null)
                 {
-                    this.SignInUser(user.ID.ToString(), false);
+                    this.SignInUser(user.ID.ToString(), true);
                     return this.RedirectToAction("Index", "Home");
                 }
                 else
                 {
                     user = this.databaseManager.users.Add(new users { username = loginInfo.DefaultUserName, steam = loginInfo.Login.ProviderKey, amount = 500 });
+                    await this.databaseManager.SaveChangesAsync();
                     // Login In.    
-                    this.SignInUser(user.ID.ToString(), false);
+                    this.SignInUser(user.ID.ToString(), true);
                     // Info.    
-                    this.databaseManager.SaveChanges();
                     return this.RedirectToAction("Index", "Home");
                 }
 

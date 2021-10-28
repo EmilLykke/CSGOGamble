@@ -61,7 +61,7 @@ body {
 }
 
 #chat-section.hidden {
-    width: 0;
+    transform: translateX(-300px);
 }
 
 #chat-section {
@@ -261,6 +261,10 @@ body {
     align-items: center;
 }
 
+.betting-box {
+    margin-bottom: 30px;
+}
+
 #wheel-overlay {
     padding: 25px 0px 25px 0px;
     position: relative;
@@ -332,7 +336,6 @@ body {
 
 #index-section {
     width: 80%;
-    margin-bottom: 20px;
 }
 
 #last100-div {
